@@ -36,12 +36,31 @@ class SellerController extends BaseController
         $totalViews = array_sum(array_column($properties, 'views'));
         $totalMessages = $this->messageModel->where('receiver_id', $userId)->countAllResults();
 
+        $statusCounts = [
+            'dijual' => 0,
+            'disewa' => 0,
+            'nonaktif' => 0,
+        ];
+
+        foreach ($properties as $property) {
+            if (!empty($property['is_active']) && $property['is_active'] == 1) {
+                if ($property['status'] === 'disewa') {
+                    $statusCounts['disewa']++;
+                } else {
+                    $statusCounts['dijual']++;
+                }
+            } else {
+                $statusCounts['nonaktif']++;
+            }
+        }
+
         return view('seller/dashboard', [
             'user' => $user,
             'properties' => $properties,
             'totalProperties' => $totalProperties,
             'totalViews' => $totalViews,
             'totalMessages' => $totalMessages,
+            'statusCounts' => $statusCounts,
         ]);
     }
 
@@ -94,7 +113,7 @@ class SellerController extends BaseController
                 'contact_email' => 'required|valid_email',
                 'whatsapp_number' => 'required|regex_match[/^\+?[0-9]{8,15}$/]',
                 'amenities' => 'permit_empty|string',
-                'images' => 'uploaded[images]|max_size[images,' . MAX_UPLOAD_SIZE . ']|ext_in[images,jpg,jpeg,png]|is_image[images]',
+                'images' => 'permit_empty|max_size[images,' . MAX_UPLOAD_SIZE . ']|ext_in[images,jpg,jpeg,png]|is_image[images]',
             ];
 
             if (!$this->validate($rules)) {
