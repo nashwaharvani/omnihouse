@@ -8,24 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="<?= base_url('assets/img/favicon.svg') ?>" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/css/app.css') ?>">
-    <style>
-        html, body { min-height: 100%; }
-        body {
-            background-color: #f5f7fb;
-            font-family: Arial, sans-serif;
-        }
-        .navbar-brand { letter-spacing: 0.08em; }
-        .card:hover { transform: translateY(-2px); transition: transform .2s ease; }
-        .footer-link { color: #cfd8e3; text-decoration: none; }
-        .footer-link:hover { color: #fff; }
-        .sticky-top { position: sticky !important; }
-    </style>
 </head>
-<body>
+<body class="<?= esc($bodyClass ?? '') ?>">
     <?= $this->include('components/navbar') ?>
 
-    <main class="pb-5">
+    <main>
         <?= $this->renderSection('content') ?>
     </main>
 

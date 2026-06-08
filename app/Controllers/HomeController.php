@@ -21,45 +21,44 @@ class HomeController extends BaseController
         return view('home/index', [
             'properties' => $properties,
             'cities'     => $cities,
+            'bodyClass'  => 'page-home',
         ]);
     }
 
     public function search()
     {
-        $keyword   = trim($this->request->getGet('keyword') ?? '');
-        $city      = trim($this->request->getGet('city') ?? '');
-        $type      = trim($this->request->getGet('type') ?? '');
-        $status    = trim($this->request->getGet('status') ?? '');
-        $priceMin  = trim($this->request->getGet('price_min') ?? '');
-        $priceMax  = trim($this->request->getGet('price_max') ?? '');
-        $bedrooms  = trim($this->request->getGet('bedrooms') ?? '');
+        $keyword = trim($this->request->getGet('keyword') ?? '');
+        $sort    = trim($this->request->getGet('sort') ?? 'newest');
 
         $filters = [
-            'city'      => $city,
-            'type'      => $type,
-            'status'    => $status,
-            'min_price' => $priceMin,
-            'max_price' => $priceMax,
-            'bedrooms'  => $bedrooms,
+            'city'               => trim($this->request->getGet('city') ?? ''),
+            'province'           => trim($this->request->getGet('province') ?? ''),
+            'type'               => trim($this->request->getGet('type') ?? ''),
+            'status'             => trim($this->request->getGet('status') ?? ''),
+            'min_price'          => trim($this->request->getGet('price_min') ?? ''),
+            'max_price'          => trim($this->request->getGet('price_max') ?? ''),
+            'bedrooms'           => trim($this->request->getGet('bedrooms') ?? ''),
+            'bathrooms'          => trim($this->request->getGet('bathrooms') ?? ''),
+            'min_land_area'      => trim($this->request->getGet('land_min') ?? ''),
+            'max_land_area'      => trim($this->request->getGet('land_max') ?? ''),
+            'min_building_area'  => trim($this->request->getGet('building_min') ?? ''),
+            'max_building_area'  => trim($this->request->getGet('building_max') ?? ''),
+            'sort'               => in_array($sort, ['newest', 'price_asc', 'price_desc', 'views'], true) ? $sort : 'newest',
         ];
 
-        $page = (int) ($this->request->getGet('page') ?? 1);
-
-        $builder = $this->propertyModel->searchProperties($keyword, $filters);
-        $total   = count($builder);
-
-        $pager = service('pager');
-        $perPage = 10;
-
-        $pageData = array_slice($builder, ($page - 1) * $perPage, $perPage);
+        $page    = max(1, (int) ($this->request->getGet('page') ?? 1));
+        $perPage = 12;
+        $results = $this->propertyModel->searchProperties($keyword, $filters);
+        $total   = count($results);
+        $pager   = service('pager');
 
         return view('home/search', [
-            'properties' => $pageData,
+            'properties' => array_slice($results, ($page - 1) * $perPage, $perPage),
             'pager'      => $pager->makeLinks($page, $perPage, $total, 'default_full'),
             'filters'    => $filters,
             'keyword'    => $keyword,
             'total'      => $total,
-            'bedrooms'   => $bedrooms,
+            'cities'     => getPopularCities(),
         ]);
     }
 

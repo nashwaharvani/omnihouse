@@ -1,193 +1,240 @@
-<?php $title = 'OMNIHOUSE | Marketplace Properti' ?>
+<?php
+$title = 'OMNIHOUSE | Marketplace Properti';
+
+$slides = [
+    [
+        'image'   => 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',
+        'badge'   => 'Properti Unggulan',
+        'title'   => 'Hunian Modern di Jakarta Selatan',
+        'price'   => 'Mulai dari Rp 1,2 Miliar',
+        'cta'     => 'Lihat Properti',
+        'ctaLink' => site_url('search?city=Jakarta&status=dijual'),
+    ],
+    [
+        'image'   => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
+        'badge'   => 'Best Deal',
+        'title'   => 'Cluster Eksklusif BSD City',
+        'price'   => 'Mulai dari Rp 850 Juta',
+        'cta'     => 'Jelajahi Sekarang',
+        'ctaLink' => site_url('search?city=Tangerang&type=rumah'),
+    ],
+    [
+        'image'   => 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80',
+        'badge'   => 'Investasi Properti',
+        'title'   => 'Apartemen Premium Thamrin',
+        'price'   => 'Mulai dari Rp 600 Juta-an',
+        'cta'     => 'Cari Apartemen',
+        'ctaLink' => site_url('search?type=apartemen&status=dijual'),
+    ],
+];
+
+$quickLinks = [
+    ['icon' => 'bi-search', 'color' => '#3b82f6', 'title' => 'Carikan Properti', 'link' => site_url('search')],
+    ['icon' => 'bi-megaphone-fill', 'color' => '#f59e0b', 'title' => 'Iklankan Properti', 'link' => site_url('jual-properti')],
+    ['icon' => 'bi-people-fill', 'color' => '#8b5cf6', 'title' => 'Cari Agen', 'link' => site_url('search')],
+    ['icon' => 'bi-percent', 'color' => '#ef4444', 'title' => 'Properti Turun Harga', 'link' => site_url('turun-harga')],
+    ['icon' => 'bi-calculator-fill', 'color' => '#10b981', 'title' => 'Kalkulator KPR', 'link' => site_url('kalkulator-harga')],
+    ['icon' => 'bi-arrow-repeat', 'color' => '#06b6d4', 'title' => 'Pindah KPR', 'link' => site_url('kalkulator-harga')],
+    ['icon' => 'bi-chat-dots-fill', 'color' => '#ec4899', 'title' => 'Tanya Forum', 'link' => site_url('forum-properti')],
+    ['icon' => 'bi-grid-3x3-gap-fill', 'color' => '#64748b', 'title' => 'Lainnya', 'link' => site_url('layanan-lainnya')],
+];
+
+$statusTabs = [
+    'dijual' => 'Dijual',
+    'disewa' => 'Disewa',
+    'baru'   => 'Properti Baru',
+];
+?>
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<section class="hero-section position-relative overflow-hidden">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="container position-relative py-5">
-        <div class="row align-items-center">
-            <div class="col-lg-7 text-white">
-                <span class="badge rounded-pill bg-white text-primary mb-3">#SEMUDAHITU</span>
-                <h1 class="display-5 fw-bold mb-3">Jual Beli dan Sewa Properti Jadi Mudah</h1>
-                <p class="lead text-white-75 mb-4">Temukan hunian terbaik, pasang iklan dengan cepat, dan raih kesempatan properti terbaik hari ini.</p>
-                <div class="d-flex flex-wrap gap-2 mb-4">
-                    <a href="/search" class="btn btn-light btn-lg">Cari Properti</a>
-                    <a href="/jual-properti" class="btn btn-outline-light btn-lg">Iklankan Properti</a>
+
+<section class="home-hero">
+    <div id="homeCarousel" class="carousel slide home-carousel" data-bs-ride="carousel" data-bs-interval="6000">
+        <div class="carousel-indicators home-carousel__indicators">
+            <?php foreach ($slides as $i => $slide): ?>
+                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="<?= $i ?>"
+                        class="<?= $i === 0 ? 'active' : '' ?>" aria-label="Slide <?= $i + 1 ?>"></button>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="carousel-inner">
+            <?php foreach ($slides as $i => $slide): ?>
+                <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
+                    <div class="home-carousel__slide" style="background-image: url('<?= esc($slide['image']) ?>')">
+                        <div class="home-carousel__content">
+                            <span class="home-carousel__badge"><?= esc($slide['badge']) ?></span>
+                            <h2 class="home-carousel__title"><?= esc($slide['title']) ?></h2>
+                            <p class="home-carousel__price"><?= esc($slide['price']) ?></p>
+                            <a href="<?= esc($slide['ctaLink']) ?>" class="btn btn-light btn-sm rounded-pill px-4 fw-semibold">
+                                <?= esc($slide['cta']) ?> <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            <?php endforeach; ?>
+        </div>
+
+        <button class="home-carousel__control home-carousel__control--prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="home-carousel__control home-carousel__control--next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="container home-search-wrap">
+        <div class="home-search-panel">
+            <div class="home-search-tabs" role="tablist">
+                <?php foreach ($statusTabs as $key => $label): ?>
+                    <button type="button"
+                            class="home-search-tab <?= $key === 'dijual' ? 'is-active' : '' ?>"
+                            data-status="<?= $key === 'baru' ? '' : esc($key) ?>"
+                            data-sort="<?= $key === 'baru' ? 'newest' : '' ?>">
+                        <?= esc($label) ?>
+                    </button>
+                <?php endforeach; ?>
             </div>
-            <div class="col-lg-5">
-                <div class="card shadow-lg rounded-4 border-0 p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <p class="text-muted mb-1">Kategori</p>
-                            <h5 class="mb-0">Dijual</h5>
-                        </div>
-                        <div class="text-end text-muted small">Cari yang cocok</div>
-                    </div>
-                    <form action="/search" method="get" class="mb-3">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-                            <input type="text" name="keyword" class="form-control border-start-0" placeholder="Lokasi, keyword, area, project, developer">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Cari</button>
-                    </form>
-                    <div class="d-flex justify-content-between text-muted small">
-                        <span>Disewa</span>
-                        <span>Properti Baru</span>
-                    </div>
+
+            <form action="<?= site_url('search') ?>" method="get" class="home-search-form" id="home-search-form">
+                <input type="hidden" name="status" id="home-search-status" value="dijual">
+                <input type="hidden" name="sort" id="home-search-sort" value="">
+                <div class="home-search-input-wrap">
+                    <i class="bi bi-search home-search-icon"></i>
+                    <input type="text" name="keyword" id="home-search-keyword" class="home-search-input"
+                           placeholder="Lokasi, keyword, area, project, developer" autocomplete="off">
+                    <button type="submit" class="home-search-btn">Cari</button>
                 </div>
+            </form>
+
+            <div class="home-search-recent" id="home-recent-searches" hidden>
+                <span class="home-search-recent-label">Pencarian terakhir:</span>
+                <div class="home-search-recent-list" id="home-recent-list"></div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-5 bg-white">
+<section class="home-quicklinks">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="h4 fw-bold mb-1">Solusi Properti untuk Anda</h2>
-                <p class="text-muted mb-0">Akses fitur lengkap untuk mencari, memasang iklan, dan mendapatkan layanan properti.</p>
-            </div>
-        </div>
-        <div class="row g-3">
-            <?php $actions = [
-                ['icon' => 'bi-search', 'title' => 'Carikan Properti', 'desc' => 'Cari hunian sesuai kebutuhan.','link' => '/search'],
-                ['icon' => 'bi-megaphone-fill', 'title' => 'Iklankan Properti', 'desc' => 'Pasang iklan jual atau sewa dengan mudah.','link' => '/jual-properti'],
-                ['icon' => 'bi-people-fill', 'title' => 'Cari Agen', 'desc' => 'Temukan agen properti terpercaya.','link' => '/search'],
-                ['icon' => 'bi-percent', 'title' => 'Properti Turun Harga', 'desc' => 'Penawaran spesial harian.','link' => '/search'],
-                ['icon' => 'bi-calculator-fill', 'title' => 'Kalkulator KPR', 'desc' => 'Hitung cicilan rumah Anda.','link' => '/search'],
-                ['icon' => 'bi-arrow-repeat', 'title' => 'Pindah KPR', 'desc' => 'Maksimalkan opsi take over.','link' => '/search'],
-                ['icon' => 'bi-chat-dots-fill', 'title' => 'Tanya Forum', 'desc' => 'Dapatkan jawaban dari komunitas.','link' => '/search'],
-                ['icon' => 'bi-grid-3x3-gap-fill', 'title' => 'Lainnya', 'desc' => 'Jelajahi layanan properti lainnya.','link' => '/search'],
-            ];
-            foreach ($actions as $action): ?>
-                <div class="col-6 col-md-3">
-                    <a href="<?= esc($action['link']) ?>" class="text-decoration-none text-dark">
-                        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 hover-shadow">
-                            <div class="icon-box bg-primary text-white mb-3">
-                                <i class="bi <?= esc($action['icon']) ?> fs-3"></i>
-                            </div>
-                            <h6 class="fw-semibold mb-2"><?= esc($action['title']) ?></h6>
-                            <p class="small text-muted mb-0"><?= esc($action['desc']) ?></p>
-                        </div>
-                    </a>
-                </div>
+        <div class="home-quicklinks-grid">
+            <?php foreach ($quickLinks as $link): ?>
+                <a href="<?= esc($link['link']) ?>" class="home-quicklink">
+                    <span class="home-quicklink__icon" style="--icon-color: <?= esc($link['color']) ?>">
+                        <i class="bi <?= esc($link['icon']) ?>"></i>
+                    </span>
+                    <span class="home-quicklink__label"><?= esc($link['title']) ?></span>
+                </a>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
 
-<section class="py-5 bg-light">
+<section class="home-map-banner">
     <div class="container">
-        <div class="row align-items-center g-4">
-            <div class="col-lg-7">
-                <div class="p-4 rounded-4 bg-white shadow-sm">
-                    <h3 class="fw-bold mb-3">Promosi Unggulan</h3>
-                    <p class="text-muted mb-4">Dapatkan promo eksklusif untuk properti pilihan dan layanan terbaik setiap bulan.</p>
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="promo-card rounded-4 p-3 bg-primary text-white h-100">
-                                <h5 class="mb-2">Diskon Biaya Admin</h5>
-                                <p class="small">Potongan biaya khusus untuk pemasangan iklan.</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="promo-card rounded-4 p-3 bg-white border h-100">
-                                <h5 class="mb-2">KPR Bunga Ringan</h5>
-                                <p class="small text-muted">Program cicilan dengan suku bunga kompetitif.</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="promo-card rounded-4 p-3 bg-white border h-100">
-                                <h5 class="mb-2">Properti Baru</h5>
-                                <p class="small text-muted">Listing proyek baru hadir setiap minggu.</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="promo-card rounded-4 p-3 bg-primary text-white h-100">
-                                <h5 class="mb-2">Bantuan Agen Gratis</h5>
-                                <p class="small">Konsultasi gratis untuk pilih properti ideal.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <a href="<?= site_url('search?city=Jakarta') ?>" class="home-map-card">
+            <div class="home-map-card__icon">
+                <i class="bi bi-geo-alt-fill"></i>
             </div>
-            <div class="col-lg-5">
-                <div class="rounded-4 overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1560185127-6e5b06f4c1d6?auto=format&fit=crop&w=1200&q=80" class="img-fluid" alt="Promo Properti">
-                </div>
+            <div class="home-map-card__body">
+                <strong>Peta Harga Properti</strong>
+                <span>Jelajahi properti di Jakarta lewat pencarian interaktif OMNIHOUSE</span>
             </div>
-        </div>
+            <i class="bi bi-chevron-right home-map-card__arrow"></i>
+        </a>
     </div>
 </section>
 
-<section class="py-5">
+<section class="home-properties">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="home-section-header">
             <div>
-                <h2 class="h4 fw-bold mb-1">Properti Terbaru</h2>
-                <p class="text-muted mb-0">Pilih hunian atau investasi terbaru dari OMNIHOUSE.</p>
+                <h2 class="home-section-title">Properti Terbaru</h2>
+                <p class="home-section-subtitle">Pilihan hunian dan investasi terbaru dari OMNIHOUSE</p>
             </div>
-            <a href="/search" class="btn btn-outline-primary">Lihat Semua</a>
+            <a href="<?= site_url('search') ?>" class="btn btn-outline-primary btn-sm">Lihat Semua</a>
         </div>
-        <div class="row g-4">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <?php foreach ($properties as $property): ?>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                        <img src="<?= esc(imageUrl($property['image'] ?? propertyPlaceholder())) ?>" class="card-img-top" alt="Properti" loading="lazy" style="height: 220px; object-fit: cover;">
-                        <div class="card-body">
-                            <span class="badge bg-primary-subtle text-primary mb-2 text-uppercase"><?= esc($property['type']) ?></span>
-                            <h5 class="card-title fw-semibold mb-1"><?= esc($property['title']) ?></h5>
-                            <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= esc($property['city']) ?></p>
-                            <p class="fw-bold text-success mb-3"><?= formatRupiah($property['price']) ?></p>
-                            <a href="/properti/<?= $property['id'] ?>" class="btn btn-outline-dark btn-sm">Lihat Detail</a>
-                        </div>
-                    </div>
+                <div class="col">
+                    <?= view('components/property-card', ['property' => $property]) ?>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
 
-<style>
-.hero-section {
-    min-height: 720px;
-    background: linear-gradient(135deg, rgba(10, 84, 168, .95) 0%, rgba(6, 91, 152, .95) 100%);
-}
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80');
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.5);
-    z-index: 1;
-}
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(5, 50, 110, 0.55);
-    z-index: 2;
-}
-.hero-section .container {
-    position: relative;
-    z-index: 3;
-}
-.icon-box {
-    width: 56px;
-    height: 56px;
-    border-radius: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.hover-shadow:hover {
-    transform: translateY(-4px);
-    transition: transform 0.2s ease;
-}
-.promo-card {
-    min-height: 145px;
-}
-</style>
+<section class="home-cities">
+    <div class="container">
+        <h2 class="home-section-title mb-3">Populer di Kota Besar</h2>
+        <div class="home-cities-grid">
+            <?php foreach ($cities as $city): ?>
+                <a href="<?= site_url('search?city=' . urlencode($city)) ?>" class="home-city-chip">
+                    <i class="bi bi-geo-alt"></i> <?= esc($city) ?>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
 <?= $this->endSection() ?>
-''
+
+<?= $this->section('scripts') ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const storageKey = 'omnihouse_recent_searches';
+    const form = document.getElementById('home-search-form');
+    const keywordInput = document.getElementById('home-search-keyword');
+    const statusInput = document.getElementById('home-search-status');
+    const sortInput = document.getElementById('home-search-sort');
+    const recentWrap = document.getElementById('home-recent-searches');
+    const recentList = document.getElementById('home-recent-list');
+
+    function loadRecent() {
+        try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
+        catch (e) { return []; }
+    }
+
+    function saveRecent(term) {
+        term = (term || '').trim();
+        if (!term) return;
+        let items = loadRecent().filter(function (t) { return t !== term; });
+        items.unshift(term);
+        localStorage.setItem(storageKey, JSON.stringify(items.slice(0, 5)));
+        renderRecent(items.slice(0, 5));
+    }
+
+    function renderRecent(items) {
+        if (!recentWrap || !recentList) return;
+        if (!items.length) { recentWrap.hidden = true; return; }
+        recentWrap.hidden = false;
+        recentList.innerHTML = items.map(function (term) {
+            return '<button type="button" class="home-recent-chip" data-term="' + term.replace(/"/g, '&quot;') + '">' + term + '</button>';
+        }).join('');
+        recentList.querySelectorAll('.home-recent-chip').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                keywordInput.value = btn.dataset.term;
+                form.submit();
+            });
+        });
+    }
+
+    renderRecent(loadRecent());
+
+    document.querySelectorAll('.home-search-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.home-search-tab').forEach(function (t) { t.classList.remove('is-active'); });
+            tab.classList.add('is-active');
+            if (statusInput) statusInput.value = tab.dataset.status || '';
+            if (sortInput) sortInput.value = tab.dataset.sort || '';
+        });
+    });
+
+    if (form) {
+        form.addEventListener('submit', function () {
+            saveRecent(keywordInput.value);
+        });
+    }
+});
+</script>
+<?= $this->endSection() ?>

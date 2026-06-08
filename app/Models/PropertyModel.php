@@ -114,10 +114,42 @@ class PropertyModel extends Model
         }
 
         if (!empty($filters['bedrooms'] ?? null)) {
-            $builder->where('properties.bedrooms', (int) $filters['bedrooms']);
+            $builder->where('properties.bedrooms >=', (int) $filters['bedrooms']);
         }
 
-        return $builder->orderBy('properties.created_at', 'DESC')->findAll();
+        if (!empty($filters['bathrooms'] ?? null)) {
+            $builder->where('properties.bathrooms >=', (int) $filters['bathrooms']);
+        }
+
+        if (!empty($filters['province'] ?? null)) {
+            $builder->like('properties.province', $filters['province']);
+        }
+
+        if (!empty($filters['min_land_area'] ?? null)) {
+            $builder->where('properties.land_area >=', (int) $filters['min_land_area']);
+        }
+
+        if (!empty($filters['max_land_area'] ?? null)) {
+            $builder->where('properties.land_area <=', (int) $filters['max_land_area']);
+        }
+
+        if (!empty($filters['min_building_area'] ?? null)) {
+            $builder->where('properties.building_area >=', (int) $filters['min_building_area']);
+        }
+
+        if (!empty($filters['max_building_area'] ?? null)) {
+            $builder->where('properties.building_area <=', (int) $filters['max_building_area']);
+        }
+
+        $sort = $filters['sort'] ?? 'newest';
+        match ($sort) {
+            'price_asc'  => $builder->orderBy('properties.price', 'ASC'),
+            'price_desc' => $builder->orderBy('properties.price', 'DESC'),
+            'views'      => $builder->orderBy('properties.views', 'DESC'),
+            default      => $builder->orderBy('properties.created_at', 'DESC'),
+        };
+
+        return $builder->findAll();
     }
 
     public function getByUser(int $userId): array
