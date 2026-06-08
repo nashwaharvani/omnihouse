@@ -14,11 +14,11 @@
     <div class="row g-4">
       <div class="col-lg-8">
         <div class="card shadow-sm border-0 rounded-4 p-3">
-          <img id="mainImage" src="<?= esc(imageUrl($images[0]['image_path'] ?? propertyPlaceholder())) ?>" class="img-fluid rounded-4" alt="Foto properti utama" loading="lazy" style="height: 420px; object-fit: cover; width: 100%;">
+          <img id="mainImage" src="<?= esc(imageUrl($images[0]['image_path'] ?? propertyPlaceholder())) ?>" class="img-fluid rounded-4" alt="Foto properti utama" loading="lazy" style="height: 420px; object-fit: cover; width: 100%;" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>'; console.warn('Gagal memuat gambar detail properti:', this.src);">
           <div class="row g-2 mt-3">
             <?php foreach ($images as $img): ?>
               <div class="col-3">
-                <img src="<?= esc(imageUrl($img['image_path'])) ?>" class="img-fluid rounded-3 thumb-image" style="height: 90px; object-fit: cover; width: 100%; cursor: pointer;" alt="Thumbnail properti" loading="lazy">
+                <img src="<?= esc(imageUrl($img['image_path'])) ?>" class="img-fluid rounded-3 thumb-image" style="height: 90px; object-fit: cover; width: 100%; cursor: pointer;" alt="Thumbnail properti" loading="lazy" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>'; console.warn('Gagal memuat thumbnail properti:', this.src);">
               </div>
             <?php endforeach; ?>
           </div>
@@ -73,7 +73,7 @@
         <?php foreach ($relatedProperties as $item): ?>
           <div class="col-md-6 col-lg-3">
             <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-              <img src="<?= esc(imageUrl($item['image'] ?? propertyPlaceholder())) ?>" class="card-img-top" style="height: 160px; object-fit: cover;" alt="Properti terkait" loading="lazy">
+              <img src="<?= esc(imageUrl($item['image'] ?? propertyPlaceholder())) ?>" class="card-img-top" style="height: 160px; object-fit: cover;" alt="Properti terkait" loading="lazy" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>'; console.warn('Gagal memuat gambar properti terkait:', this.src);">
               <div class="card-body">
                 <h6 class="fw-semibold mb-1"><?= esc($item['title']) ?></h6>
                 <p class="small text-muted mb-2"><?= esc($item['city']) ?></p>

@@ -108,5 +108,5 @@ defined('CITIES') || define('CITIES', [
     'Bekasi',
 ]);
 
-defined('UPLOAD_PATH') || define('UPLOAD_PATH', 'writable/uploads/properties/');
+defined('UPLOAD_PATH') || define('UPLOAD_PATH', 'uploads/properties/');
 defined('MAX_UPLOAD_SIZE') || define('MAX_UPLOAD_SIZE', 2048);

@@ -24,15 +24,28 @@ class UserController extends BaseController
         $this->requireLogin();
 
         if (session()->get('role') === 'seller' || session()->get('role') === 'admin') {
-            return redirect()->to('/seller/dashboard');
+            return redirect()->to('/dashboard/seller');
         }
 
         $userId = session()->get('user_id');
         $messages = $this->messageModel->where('sender_id', $userId)->orderBy('created_at', 'DESC')->findAll();
+        $recommendedProperties = $this->propertyModel->getLatestProperties(6);
 
         return view('user/dashboard', [
             'messages' => $messages,
+            'recommendedProperties' => $recommendedProperties,
         ]);
+    }
+
+    public function favorites()
+    {
+        $this->requireLogin();
+
+        if (session()->get('role') === 'seller' || session()->get('role') === 'admin') {
+            return redirect()->to('/dashboard/seller')->with('error', 'Akses ditolak. Halaman ini hanya untuk pembeli.');
+        }
+
+        return view('user/favorites');
     }
 
     public function profile()

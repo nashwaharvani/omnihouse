@@ -21,8 +21,8 @@
       <div class="row g-3">
         <div class="col-md-6"><label class="form-label">Judul Properti</label><input type="text" name="title" class="form-control" required value="<?= old('title') ?>"></div>
         <div class="col-md-6"><label class="form-label">Harga</label><input type="number" name="price" class="form-control" required value="<?= old('price') ?>"></div>
-        <div class="col-md-6"><label class="form-label">Tipe Properti</label><select name="type" class="form-select" required><option value="">Pilih</option><option value="rumah">Rumah</option><option value="kontrakan">Kontrakan</option><option value="apartemen">Apartemen</option><option value="kost">Kost</option><option value="ruko">Ruko</option><option value="tanah">Tanah</option></select></div>
-        <div class="col-md-6"><label class="form-label">Status</label><select name="status" class="form-select"><option value="dijual">Dijual</option><option value="disewa">Disewa</option></select></div>
+        <div class="col-md-6"><label class="form-label">Tipe Properti</label><select name="type" class="form-select" required><option value="">Pilih</option><option value="rumah" <?= old('type') === 'rumah' ? 'selected' : '' ?>>Rumah</option><option value="kontrakan" <?= old('type') === 'kontrakan' ? 'selected' : '' ?>>Kontrakan</option><option value="apartemen" <?= old('type') === 'apartemen' ? 'selected' : '' ?>>Apartemen</option><option value="kost" <?= old('type') === 'kost' ? 'selected' : '' ?>>Kost</option><option value="ruko" <?= old('type') === 'ruko' ? 'selected' : '' ?>>Ruko</option><option value="tanah" <?= old('type') === 'tanah' ? 'selected' : '' ?>>Tanah</option></select></div>
+        <div class="col-md-6"><label class="form-label">Status</label><select name="status" class="form-select"><option value="dijual" <?= old('status', 'dijual') === 'dijual' ? 'selected' : '' ?>>Dijual</option><option value="disewa" <?= old('status') === 'disewa' ? 'selected' : '' ?>>Disewa</option></select></div>
         <div class="col-md-6"><label class="form-label">Kota</label><input type="text" name="city" class="form-control" required value="<?= old('city') ?>"></div>
         <div class="col-md-6"><label class="form-label">Provinsi</label><input type="text" name="province" class="form-control" required value="<?= old('province') ?>"></div>
         <div class="col-md-6"><label class="form-label">Nama Kontak</label><input type="text" name="contact_name" class="form-control" required value="<?= old('contact_name') ?>"></div>
@@ -54,6 +54,9 @@
 <script>
   const input = document.getElementById('imagesInput');
   const preview = document.getElementById('preview');
+  const form = document.querySelector('form');
+  const submitButton = form.querySelector('button[type="submit"]');
+
   input.addEventListener('change', function () {
     preview.innerHTML = '';
     Array.from(this.files).forEach(file => {
@@ -66,6 +69,13 @@
       };
       reader.readAsDataURL(file);
     });
+  });
+
+  form.addEventListener('submit', function () {
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Simpan ...';
+    }
   });
 </script>
 <?= $this->endSection() ?>

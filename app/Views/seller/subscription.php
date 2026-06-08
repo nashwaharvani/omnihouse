@@ -22,7 +22,7 @@
                                 <p class="mb-3 text-muted">Cocok untuk penjual baru.</p>
                                 <p><strong>Kuota:</strong> 2 listing</p>
                                 <p><strong>Fitur:</strong> Pasang iklan, kelola properti, chat pembeli.</p>
-                                <a href="<?= site_url('login') ?>" class="btn btn-outline-primary mt-3">Gunakan Gratis</a>
+                                <a href="<?= site_url('login/seller') ?>" class="btn btn-outline-primary mt-3">Gunakan Gratis</a>
                             </div>
                         </div>
                         <div class="col-md-4">

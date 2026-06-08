@@ -10,8 +10,8 @@
                 <ul class="list-unstyled small">
                     <li><a class="footer-link" href="<?= site_url('/') ?>">Beranda</a></li>
                     <li><a class="footer-link" href="<?= site_url('cari') ?>">Cari Properti</a></li>
-                    <li><a class="footer-link" href="<?= site_url('login') ?>">Masuk</a></li>
-                    <li><a class="footer-link" href="<?= site_url('register') ?>">Daftar</a></li>
+                    <li><a class="footer-link" href="<?= site_url('login/buyer') ?>">Masuk</a></li>
+                    <li><a class="footer-link" href="<?= site_url('register/buyer') ?>">Daftar</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4">

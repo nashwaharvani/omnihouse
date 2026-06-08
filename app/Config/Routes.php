@@ -9,15 +9,27 @@ $routes->get('/', 'HomeController::index');
 $routes->get('search', 'HomeController::search');
 $routes->get('cari', 'HomeController::search');
 $routes->get('properti/(:num)', 'PropertyController::detail/$1');
-$routes->get('jual-properti', 'SellerController::sellInfo');
+$routes->get('iklan-properti', 'AuthController::loginSeller');
+$routes->get('jual-properti', 'AuthController::loginSeller');
+$routes->get('turun-harga', 'HomeController::priceDrop');
+$routes->get('kalkulator-harga', 'HomeController::calculator');
+$routes->get('forum-properti', 'HomeController::community');
+$routes->get('layanan-lainnya', 'HomeController::services');
 $routes->get('langganan', 'SellerController::subscription');
-$routes->get('my-properties', 'SellerController::dashboard');
 
 // Auth routes
-$routes->get('login', 'AuthController::login');
-$routes->post('login', 'AuthController::login');
-$routes->get('register', 'AuthController::register');
-$routes->post('register', 'AuthController::register');
+$routes->get('login', 'AuthController::loginBuyer');
+$routes->post('login', 'AuthController::loginBuyer');
+$routes->get('login/buyer', 'AuthController::loginBuyer');
+$routes->post('login/buyer', 'AuthController::loginBuyer');
+$routes->get('login/seller', 'AuthController::loginSeller');
+$routes->post('login/seller', 'AuthController::loginSeller');
+$routes->get('register', 'AuthController::registerBuyer');
+$routes->post('register', 'AuthController::registerBuyer');
+$routes->get('register/buyer', 'AuthController::registerBuyer');
+$routes->post('register/buyer', 'AuthController::registerBuyer');
+$routes->get('register/seller', 'AuthController::registerSeller');
+$routes->post('register/seller', 'AuthController::registerSeller');
 $routes->get('logout', 'AuthController::logout');
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
@@ -35,9 +47,20 @@ $routes->group('user', ['filter' => 'auth'], function ($routes) {
     $routes->get('chat/(:num)/(:num)', 'UserController::conversation/$1/$2');
 });
 
+$routes->group('', ['filter' => 'buyer'], function ($routes) {
+    $routes->get('dashboard/buyer', 'UserController::dashboard');
+    $routes->get('favorit', 'UserController::favorites');
+});
+
+$routes->group('', ['filter' => 'seller'], function ($routes) {
+    $routes->get('dashboard/seller', 'SellerController::dashboard');
+});
+
 // Seller routes (login + seller/admin)
 $routes->group('seller', ['filter' => 'seller'], function ($routes) {
     $routes->get('dashboard', 'SellerController::dashboard');
+    $routes->get('my-properties', 'SellerController::dashboard');
+    $routes->get('dashboard/seller', 'SellerController::dashboard');
     $routes->get('properti/tambah', 'SellerController::create');
     $routes->post('properti/tambah', 'SellerController::create');
     $routes->get('create', 'SellerController::create');
@@ -45,6 +68,7 @@ $routes->group('seller', ['filter' => 'seller'], function ($routes) {
     $routes->get('properti/edit/(:num)', 'SellerController::edit/$1');
     $routes->post('properti/edit/(:num)', 'SellerController::edit/$1');
     $routes->delete('properti/(:num)', 'SellerController::delete/$1');
+    $routes->get('delete/(:num)', 'SellerController::delete/$1');
     $routes->get('properties/new', 'SellerController::create');
     $routes->post('properties/new', 'SellerController::create');
     $routes->get('properties/edit/(:num)', 'SellerController::edit/$1');

@@ -12,7 +12,7 @@
     $slug = $property['slug'] ?? ($property->slug ?? '');
     ?>
 
-    <img src="<?= esc($foto) ?>" class="card-img-top" alt="<?= esc($judul) ?>" loading="lazy" style="height: 220px; object-fit: cover;">
+    <img src="<?= esc($foto) ?>" class="card-img-top" alt="<?= esc($judul) ?>" loading="lazy" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>'; console.warn('Gagal memuat kartu properti:', this.src);">
 
     <div class="card-body d-flex flex-column">
         <div class="d-flex justify-content-between gap-2 mb-2">

@@ -80,7 +80,36 @@ if (!function_exists('imageUrl')) {
         }
 
         $normalized = ltrim($path, '/');
+        if (str_starts_with($normalized, 'writable/')) {
+            $normalized = substr($normalized, strlen('writable/'));
+        }
+
         return base_url($normalized);
+    }
+}
+
+if (!function_exists('resolveImageStoragePath')) {
+    function resolveImageStoragePath(?string $path): ?string
+    {
+        if (empty($path)) {
+            return null;
+        }
+
+        $normalized = ltrim($path, '/');
+        if (str_starts_with($normalized, 'writable/')) {
+            $normalized = substr($normalized, strlen('writable/'));
+            $writablePath = WRITEPATH . $normalized;
+            if (file_exists($writablePath)) {
+                return $writablePath;
+            }
+        }
+
+        $publicPath = FCPATH . $normalized;
+        if (file_exists($publicPath)) {
+            return $publicPath;
+        }
+
+        return $publicPath;
     }
 }
 

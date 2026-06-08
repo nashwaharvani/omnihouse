@@ -77,15 +77,24 @@ class PropertyModel extends Model
         $builder = $this->select('properties.*, property_images.image_path as image')
             ->join('property_images', 'property_images.property_id = properties.id AND property_images.is_primary = 1', 'left')
             ->where('properties.deleted_at', null)
-            ->where('properties.is_active', 1)
-            ->groupStart()
-            ->like('properties.title', $keyword)
-            ->orLike('properties.city', $keyword)
-            ->orLike('properties.address', $keyword)
+            ->where('properties.is_active', 1);
+
+        if (trim($keyword) !== '') {
+            $builder->groupStart()
+                ->like('properties.title', $keyword)
+                ->orLike('properties.description', $keyword)
+                ->orLike('properties.city', $keyword)
+                ->orLike('properties.province', $keyword)
+                ->orLike('properties.address', $keyword)
             ->groupEnd();
+        }
 
         if (!empty($filters['city'] ?? null)) {
-            $builder->where('properties.city', $filters['city']);
+            $builder->groupStart()
+                ->like('properties.city', $filters['city'])
+                ->orLike('properties.province', $filters['city'])
+                ->orLike('properties.address', $filters['city'])
+            ->groupEnd();
         }
 
         if (!empty($filters['min_price'] ?? null)) {

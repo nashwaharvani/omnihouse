@@ -36,6 +36,7 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'auth'          => \App\Filters\AuthFilter::class,
         'seller'        => \App\Filters\SellerFilter::class,
+        'buyer'         => \App\Filters\BuyerFilter::class,
     ];
 
     /**

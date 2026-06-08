@@ -34,16 +34,6 @@ class HomeController extends BaseController
         $priceMax  = trim($this->request->getGet('price_max') ?? '');
         $bedrooms  = trim($this->request->getGet('bedrooms') ?? '');
 
-        if (! $city || ! $type) {
-            $parsed = $this->parseSearchKeyword($keyword);
-            if (! $city && ! empty($parsed['city'])) {
-                $city = $parsed['city'];
-            }
-            if (! $type && ! empty($parsed['type'])) {
-                $type = $parsed['type'];
-            }
-        }
-
         $filters = [
             'city'      => $city,
             'type'      => $type,
@@ -71,6 +61,43 @@ class HomeController extends BaseController
             'total'      => $total,
             'bedrooms'   => $bedrooms,
         ]);
+    }
+
+    public function priceDrop()
+    {
+        $properties = $this->propertyModel->getAllActiveProperties();
+        $discounted = [];
+
+        foreach ($properties as $property) {
+            $price = (float) $property['price'];
+            $originalPrice = round($price * (1 + rand(10, 18) / 100), -3);
+            if ($originalPrice <= $price) {
+                $originalPrice = round($price * 1.15, -3);
+            }
+            $discounted[] = array_merge($property, [
+                'original_price' => $originalPrice,
+                'discount_pct' => (int) round((($originalPrice - $price) / $originalPrice) * 100),
+            ]);
+        }
+
+        return view('home/price_drop', [
+            'properties' => array_slice($discounted, 0, 12),
+        ]);
+    }
+
+    public function calculator()
+    {
+        return view('home/calculator');
+    }
+
+    public function community()
+    {
+        return view('home/community');
+    }
+
+    public function services()
+    {
+        return view('home/services');
     }
 
     private function parseSearchKeyword(string $keyword): array

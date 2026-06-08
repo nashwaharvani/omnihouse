@@ -32,18 +32,48 @@ class SellerController extends BaseController
         $user = $this->userModel->find($userId);
 
         $properties = $this->propertyModel->getByUser($userId);
+          foreach ($properties as &$property) {
+            $primaryImage = $this->propertyImageModel->getPrimaryImage($property['id']);
+            $property['image'] = $primaryImage['image_path'] ?? null;
+        }
+        unset($property);
+
         $totalProperties = count($properties);
         $totalViews = array_sum(array_column($properties, 'views'));
         $totalMessages = $this->messageModel->where('receiver_id', $userId)->countAllResults();
 
+        $totalActive = 0;
+        $totalSold = 0;
+        $totalRevenue = 0;
         $statusCounts = [
             'dijual' => 0,
             'disewa' => 0,
             'nonaktif' => 0,
         ];
 
+        $monthlyStats = [];
+        $monthCursor = new \DateTime('-5 months');
+        for ($i = 0; $i < 6; $i++) {
+            $key = $monthCursor->format('Y-m');
+            $monthlyStats[$key] = [
+                'label' => $monthCursor->format('M Y'),
+                'active' => 0,
+                'sold' => 0,
+                'revenue' => 0,
+            ];
+            $monthCursor->modify('+1 month');
+        }
+
         foreach ($properties as $property) {
-            if (!empty($property['is_active']) && $property['is_active'] == 1) {
+            $isActive = !empty($property['is_active']) && $property['is_active'] == 1;
+            if ($isActive) {
+                $totalActive++;
+            } else {
+                $totalSold++;
+                $totalRevenue += (float) $property['price'];
+            }
+
+            if ($isActive) {
                 if ($property['status'] === 'disewa') {
                     $statusCounts['disewa']++;
                 } else {
@@ -52,15 +82,36 @@ class SellerController extends BaseController
             } else {
                 $statusCounts['nonaktif']++;
             }
+
+            $monthKey = date('Y-m', strtotime($property['created_at'] ?? 'now'));
+            if (!isset($monthlyStats[$monthKey])) {
+                $monthlyStats[$monthKey] = [
+                    'label' => date('M Y', strtotime($property['created_at'] ?? 'now')),
+                    'active' => 0,
+                    'sold' => 0,
+                    'revenue' => 0,
+                ];
+            }
+
+            if ($isActive) {
+                $monthlyStats[$monthKey]['active']++;
+            } else {
+                $monthlyStats[$monthKey]['sold']++;
+                $monthlyStats[$monthKey]['revenue'] += (float) $property['price'];
+            }
         }
 
         return view('seller/dashboard', [
             'user' => $user,
             'properties' => $properties,
             'totalProperties' => $totalProperties,
+            'totalActive' => $totalActive,
+            'totalSold' => $totalSold,
+            'totalRevenue' => $totalRevenue,
             'totalViews' => $totalViews,
             'totalMessages' => $totalMessages,
             'statusCounts' => $statusCounts,
+            'monthlyStats' => array_values($monthlyStats),
         ]);
     }
 
@@ -120,29 +171,35 @@ class SellerController extends BaseController
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             }
 
-            $propertyId = $this->propertyModel->insert([
-                'user_id' => session()->get('user_id'),
-                'title' => $this->request->getPost('title'),
-                'description' => $this->request->getPost('description'),
-                'price' => $this->request->getPost('price'),
-                'type' => $this->request->getPost('type'),
-                'status' => $this->request->getPost('status') ?? 'dijual',
-                'city' => $this->request->getPost('city'),
-                'province' => $this->request->getPost('province'),
-                'address' => $this->request->getPost('address'),
-                'bedrooms' => $this->request->getPost('bedrooms'),
-                'bathrooms' => $this->request->getPost('bathrooms'),
-                'garage' => $this->request->getPost('garage'),
-                'land_area' => $this->request->getPost('land_area'),
-                'building_area' => $this->request->getPost('building_area'),
-                'contact_name' => $this->request->getPost('contact_name'),
-                'contact_email' => $this->request->getPost('contact_email'),
-                'whatsapp_number' => $this->request->getPost('whatsapp_number'),
-                'amenities' => $this->request->getPost('amenities'),
-                'is_active' => 1,
-            ]);
+            try {
+                $propertyId = $this->propertyModel->insert([
+                    'user_id' => session()->get('user_id'),
+                    'title' => $this->request->getPost('title'),
+                    'description' => $this->request->getPost('description'),
+                    'price' => $this->request->getPost('price'),
+                    'type' => $this->request->getPost('type'),
+                    'status' => $this->request->getPost('status') ?? 'dijual',
+                    'city' => $this->request->getPost('city'),
+                    'province' => $this->request->getPost('province'),
+                    'address' => $this->request->getPost('address'),
+                    'bedrooms' => $this->request->getPost('bedrooms'),
+                    'bathrooms' => $this->request->getPost('bathrooms'),
+                    'garage' => $this->request->getPost('garage'),
+                    'land_area' => $this->request->getPost('land_area'),
+                    'building_area' => $this->request->getPost('building_area'),
+                    'contact_name' => $this->request->getPost('contact_name'),
+                    'contact_email' => $this->request->getPost('contact_email'),
+                    'whatsapp_number' => $this->request->getPost('whatsapp_number'),
+                    'amenities' => $this->request->getPost('amenities'),
+                    'is_active' => 1,
+                ]);
+            } catch (\Throwable $e) {
+                log_message('error', 'CREATE PROPERTY ERROR: ' . $e->getMessage() . ' | POST: ' . json_encode($this->request->getPost()) . ' | USER_ID: ' . session()->get('user_id'));
+                return redirect()->back()->withInput()->with('error', 'Gagal menyimpan properti. Silakan cek kembali data dan hubungi admin jika perlu.');
+            }
 
             if (!$propertyId) {
+                log_message('error', 'CREATE PROPERTY FAILED WITHOUT ID: POST: ' . json_encode($this->request->getPost()) . ' | USER_ID: ' . session()->get('user_id'));
                 return redirect()->back()->withInput()->with('error', 'Gagal membuat properti.');
             }
 
@@ -150,7 +207,7 @@ class SellerController extends BaseController
                 $this->userModel->update($user['id'], ['upload_count' => ($user['upload_count'] ?? 0) + 1]);
             }
 
-            $uploadPath = WRITEPATH . 'uploads/properties/' . $propertyId . '/';
+            $uploadPath = FCPATH . UPLOAD_PATH . $propertyId . '/';
             if (!is_dir($uploadPath)) {
                 mkdir($uploadPath, 0777, true);
             }
@@ -165,16 +222,21 @@ class SellerController extends BaseController
                     $tmpPath = $uploadPath . $newName;
                     if ($img->move($uploadPath, $newName)) {
                         resizeImageToMax($tmpPath, $tmpPath, 1200);
-                    }
-                    $this->propertyImageModel->insert([
-                        'property_id' => $propertyId,
-                        'image_path' => 'writable/uploads/properties/' . $propertyId . '/' . $newName,
-                        'is_primary' => $primary ? 1 : 0,
-                    ]);
+                        $imagePath = UPLOAD_PATH . $propertyId . '/' . $newName;
+                        $this->propertyImageModel->insert([
+                            'property_id' => $propertyId,
+                            'image_path' => $imagePath,
+                            'is_primary' => $primary ? 1 : 0,
+                        ]);
 
-                    if ($primary) {
-                        $primaryImagePath = $tmpPath;
-                        $primary = false;
+                        log_message('debug', 'CREATE PROPERTY IMAGE SAVED: ' . $imagePath . ' | PROPERTY_ID: ' . $propertyId . ' | USER_ID: ' . session()->get('user_id'));
+
+                        if ($primary) {
+                            $primaryImagePath = $tmpPath;
+                            $primary = false;
+                        }
+                    } else {
+                        log_message('error', 'CREATE PROPERTY IMAGE UPLOAD FAILED: ' . print_r($img->getError(), true) . ' | PROPERTY_ID: ' . $propertyId . ' | USER_ID: ' . session()->get('user_id'));
                     }
                 }
             }
@@ -209,52 +271,66 @@ class SellerController extends BaseController
                 'contact_email' => 'required|valid_email',
                 'whatsapp_number' => 'required|regex_match[/^\+?[0-9]{8,15}$/]',
                 'amenities' => 'permit_empty|string',
-                'images' => 'max_size[images,' . MAX_UPLOAD_SIZE . ']|ext_in[images,jpg,jpeg,png]|is_image[images]',
+                'images' => 'permit_empty|max_size[images,' . MAX_UPLOAD_SIZE . ']|ext_in[images,jpg,jpeg,png]|is_image[images]',
             ];
 
             if (!$this->validate($rules)) {
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             }
 
-            $this->propertyModel->update($id, [
-                'title' => $this->request->getPost('title'),
-                'description' => $this->request->getPost('description'),
-                'price' => $this->request->getPost('price'),
-                'type' => $this->request->getPost('type'),
-                'status' => $this->request->getPost('status') ?? 'dijual',
-                'city' => $this->request->getPost('city'),
-                'province' => $this->request->getPost('province'),
-                'address' => $this->request->getPost('address'),
-                'bedrooms' => $this->request->getPost('bedrooms'),
-                'bathrooms' => $this->request->getPost('bathrooms'),
-                'garage' => $this->request->getPost('garage'),
-                'land_area' => $this->request->getPost('land_area'),
-                'building_area' => $this->request->getPost('building_area'),
-                'contact_name' => $this->request->getPost('contact_name'),
-                'contact_email' => $this->request->getPost('contact_email'),
-                'whatsapp_number' => $this->request->getPost('whatsapp_number'),
-                'amenities' => $this->request->getPost('amenities'),
-            ]);
+            try {
+                $this->propertyModel->update($id, [
+                    'title' => $this->request->getPost('title'),
+                    'description' => $this->request->getPost('description'),
+                    'price' => $this->request->getPost('price'),
+                    'type' => $this->request->getPost('type'),
+                    'status' => $this->request->getPost('status') ?? 'dijual',
+                    'city' => $this->request->getPost('city'),
+                    'province' => $this->request->getPost('province'),
+                    'address' => $this->request->getPost('address'),
+                    'bedrooms' => $this->request->getPost('bedrooms'),
+                    'bathrooms' => $this->request->getPost('bathrooms'),
+                    'garage' => $this->request->getPost('garage'),
+                    'land_area' => $this->request->getPost('land_area'),
+                    'building_area' => $this->request->getPost('building_area'),
+                    'contact_name' => $this->request->getPost('contact_name'),
+                    'contact_email' => $this->request->getPost('contact_email'),
+                    'whatsapp_number' => $this->request->getPost('whatsapp_number'),
+                    'amenities' => $this->request->getPost('amenities'),
+                ]);
+            } catch (\Throwable $e) {
+                log_message('error', 'UPDATE PROPERTY ERROR: ' . $e->getMessage() . ' | POST: ' . json_encode($this->request->getPost()) . ' | USER_ID: ' . session()->get('user_id') . ' | PROPERTY_ID: ' . $id);
+                return redirect()->back()->withInput()->with('error', 'Gagal memperbarui properti. Silakan cek kembali data.');
+            }
 
             $images = $this->request->getFileMultiple('images');
             if (!empty($images) && $images[0]->isValid()) {
-                $uploadPath = WRITEPATH . 'uploads/properties/' . $id . '/';
+                // Jika ada upload baru, pastikan foto baru bisa menjadi primary
+                $this->propertyImageModel->where('property_id', $id)->set(['is_primary' => 0])->update();
+
+                $uploadPath = FCPATH . UPLOAD_PATH . $id . '/';
                 if (!is_dir($uploadPath)) {
                     mkdir($uploadPath, 0777, true);
                 }
 
+                $primary = true;
                 foreach ($images as $img) {
                     if ($img->isValid() && !$img->hasMoved()) {
                         $newName = $img->getRandomName();
                         $tmpPath = $uploadPath . $newName;
                         if ($img->move($uploadPath, $newName)) {
                             resizeImageToMax($tmpPath, $tmpPath, 1200);
+                            $imagePath = UPLOAD_PATH . $id . '/' . $newName;
+                            $this->propertyImageModel->insert([
+                                'property_id' => $id,
+                                'image_path' => $imagePath,
+                                'is_primary' => $primary ? 1 : 0,
+                            ]);
+                            $primary = false;
+                            log_message('debug', 'UPDATE PROPERTY IMAGE SAVED: ' . $imagePath . ' | PROPERTY_ID: ' . $id . ' | USER_ID: ' . session()->get('user_id'));
+                        } else {
+                            log_message('error', 'UPDATE PROPERTY IMAGE UPLOAD FAILED: ' . print_r($img->getError(), true) . ' | PROPERTY_ID: ' . $id . ' | USER_ID: ' . session()->get('user_id'));
                         }
-                        $this->propertyImageModel->insert([
-                            'property_id' => $id,
-                            'image_path' => 'writable/uploads/properties/' . $id . '/' . $newName,
-                            'is_primary' => 0,
-                        ]);
                     }
                 }
 
@@ -278,16 +354,24 @@ class SellerController extends BaseController
 
         $images = $this->propertyImageModel->where('property_id', $id)->findAll();
         foreach ($images as $img) {
-            $path = WRITEPATH . str_replace('writable/', '', $img['image_path']);
-            if (file_exists($path)) {
+            $path = resolveImageStoragePath($img['image_path']);
+            if ($path && file_exists($path)) {
                 unlink($path);
             }
             $this->propertyImageModel->delete($img['id']);
         }
 
-        $this->propertyModel->update($id, ['is_active' => 0]);
+        try {
+            $deleted = $this->propertyModel->delete($id, true);
+            if (! $deleted) {
+                throw new \Exception('Gagal menghapus properti dari database.');
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'DELETE PROPERTY FAILED: ' . $e->getMessage() . ' | PROPERTY_ID: ' . $id . ' | USER_ID: ' . session()->get('user_id'));
+            return redirect()->back()->with('error', 'Gagal menghapus properti. Silakan coba lagi atau hubungi admin.');
+        }
 
-        return redirect()->to('/seller/dashboard')->with('success', 'Properti berhasil dinonaktifkan.');
+        return redirect()->to('/seller/dashboard')->with('success', 'Properti berhasil dihapus.');
     }
 
     public function deleteImage($imageId)
@@ -305,8 +389,8 @@ class SellerController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Akses ditolak.']);
         }
 
-        $path = WRITEPATH . str_replace('writable/', '', $image['image_path']);
-        if (file_exists($path)) {
+        $path = resolveImageStoragePath($image['image_path']);
+        if ($path && file_exists($path)) {
             unlink($path);
         }
 

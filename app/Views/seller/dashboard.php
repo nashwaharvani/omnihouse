@@ -14,47 +14,50 @@
     <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
   <?php endif; ?>
 
-  <div class="row g-3 mb-4">
-    <div class="col-md-3"><div class="card p-3 shadow-sm"><strong><?= esc($totalProperties) ?></strong><div>Total Properti</div></div></div>
-    <div class="col-md-3"><div class="card p-3 shadow-sm"><strong><?= esc($totalViews) ?></strong><div>Total Views</div></div></div>
-    <div class="col-md-3"><div class="card p-3 shadow-sm"><strong><?= esc($totalMessages) ?></strong><div>Total Pesan Masuk</div></div></div>
-    <div class="col-md-3"><div class="card p-3 shadow-sm"><strong><?= esc($statusCounts['dijual'] + $statusCounts['disewa']) ?></strong><div>Properti Aktif</div></div></div>
+  <div class="row row-cols-1 row-cols-md-3 row-cols-xl-5 g-3 mb-4">
+    <div class="col"><div class="card p-3 shadow-sm"><strong><?= esc($totalProperties) ?></strong><div>Total Properti</div></div></div>
+    <div class="col"><div class="card p-3 shadow-sm"><strong><?= esc($totalActive) ?></strong><div>Properti Aktif</div></div></div>
+    <div class="col"><div class="card p-3 shadow-sm"><strong><?= esc($totalSold) ?></strong><div>Properti Terjual</div></div></div>
+    <div class="col"><div class="card p-3 shadow-sm"><strong><?= formatRupiah($totalRevenue) ?></strong><div>Total Penjualan</div></div></div>
+    <div class="col"><div class="card p-3 shadow-sm"><strong><?= esc($totalViews) ?></strong><div>Jumlah Pengunjung</div></div></div>
   </div>
 
-  <div class="card shadow-sm border-0 rounded-4 p-3 mb-4">
-    <h5 class="fw-semibold mb-3">Grafik Performa Properti</h5>
-    <?php if (!empty($properties)): ?>
-      <?php $maxViews = max(array_column($properties, 'views')) ?: 1; ?>
-      <div class="mb-3 row row-cols-1 row-cols-md-2 g-3">
-        <div class="col">
-          <div class="p-3 rounded-4 bg-light">
-            <h6 class="mb-3">Status Properti</h6>
-            <div class="d-flex justify-content-between mb-2"><span>Dijual</span><strong><?= esc($statusCounts['dijual']) ?></strong></div>
-            <div class="d-flex justify-content-between mb-2"><span>Disewa</span><strong><?= esc($statusCounts['disewa']) ?></strong></div>
-            <div class="d-flex justify-content-between"><span>Nonaktif</span><strong><?= esc($statusCounts['nonaktif']) ?></strong></div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3 rounded-4 bg-light">
-            <h6 class="mb-3">Views per Properti</h6>
-            <?php foreach ($properties as $property): ?>
-              <?php $width = round(($property['views'] / $maxViews) * 100); ?>
-              <div class="mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <small><?= esc(strlen($property['title']) > 20 ? substr($property['title'], 0, 20) . '...' : $property['title']) ?></small>
-                  <small class="text-muted"><?= esc($property['views']) ?> view</small>
-                </div>
-                <div class="progress" style="height: 14px; border-radius: .75rem;">
-                  <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $width ?>%" aria-valuenow="<?= $width ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            <?php endforeach; ?>
-          </div>
-        </div>
+  <div class="card shadow-sm border-0 rounded-4 p-3 mb-4 sales-chart-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="fw-semibold mb-1">Grafik Penjualan</h5>
+        <p class="text-muted mb-0">Data terbaru 6 bulan terakhir</p>
       </div>
-    <?php else: ?>
-      <p class="text-muted mb-0">Belum ada properti. Tambahkan properti untuk melihat grafik penjualan.</p>
-    <?php endif; ?>
+      <div class="sales-chart-legend">
+        <span><span class="legend-dot legend-active"></span> Properti Aktif</span>
+        <span><span class="legend-dot legend-sold"></span> Properti Terjual</span>
+        <span><span class="legend-dot legend-revenue"></span> Pendapatan</span>
+      </div>
+    </div>
+
+    <div class="sales-chart-grid">
+      <?php $maxValue = max(array_merge(array_column($monthlyStats, 'active'), array_column($monthlyStats, 'sold'), [1])); ?>
+      <?php foreach ($monthlyStats as $month): ?>
+        <?php $activeHeight = (int) (($month['active'] / $maxValue) * 180); ?>
+        <?php $soldHeight = (int) (($month['sold'] / $maxValue) * 180); ?>
+        <div class="sales-chart-column">
+          <div class="sales-chart-bar active" style="height: <?= esc($activeHeight) ?>px;">
+            <span><?= esc($month['active']) ?> aktif</span>
+          </div>
+          <div class="sales-chart-bar sold" style="height: <?= esc($soldHeight) ?>px;">
+            <span><?= esc($month['sold']) ?> terjual</span>
+          </div>
+          <div class="sales-chart-label"><?= esc($month['label']) ?></div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="mt-4">
+      <div class="d-flex justify-content-between flex-wrap gap-3">
+        <div class="text-muted">Pendapatan total: <strong><?= formatRupiah($totalRevenue) ?></strong></div>
+        <div class="text-muted">Properti aktif: <strong><?= esc($totalActive) ?></strong></div>
+      </div>
+    </div>
   </div>
 
   <div class="card shadow-sm border-0 rounded-4 p-3">
@@ -63,6 +66,7 @@
       <table class="table table-hover align-middle">
         <thead>
           <tr>
+            <th>Foto</th>
             <th>Judul</th>
             <th>Tipe</th>
             <th>Harga</th>
@@ -74,6 +78,9 @@
         <tbody>
           <?php foreach ($properties as $property): ?>
             <tr>
+              <td>
+                <img src="<?= esc(imageUrl($property['image'] ?? propertyPlaceholder())) ?>" alt="Foto properti" class="rounded-3" style="width: 80px; height: 60px; object-fit: cover;" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>';">
+              </td>
               <td><?= esc($property['title']) ?></td>
               <td><?= esc($property['type']) ?></td>
               <td><?= formatRupiah($property['price']) ?></td>
@@ -90,4 +97,5 @@
     </div>
   </div>
 </div>
+
 <?= $this->endSection() ?>

@@ -19,6 +19,7 @@ class UserModel extends Model
         'password',
         'role',
         'phone',
+        'agency_name',
         'avatar',
         'subscription_status',
         'upload_count',
@@ -34,6 +35,8 @@ class UserModel extends Model
         'email'    => 'required|valid_email|is_unique[users.email]',
         'password' => 'required|min_length[6]',
         'role'     => 'permit_empty|in_list[buyer,seller,admin]',
+        'phone'    => 'permit_empty|max_length[20]',
+        'agency_name' => 'permit_empty|max_length[150]',
         'subscription_status' => 'permit_empty|in_list[free,basic,premium]',
         'upload_count' => 'permit_empty|integer',
     ];

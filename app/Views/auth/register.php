@@ -1,8 +1,20 @@
 ﻿<?php $title = 'Daftar - OMNIHOUSE' ?>
 <?= $this->extend('layouts/auth') ?>
 <?= $this->section('auth-content') ?>
-    <?php $role = service('request')->getGet('role') ?? 'buyer'; ?>
+    <?php $role = old('role', service('request')->getGet('role') ?? 'buyer'); ?>
     <p class="text-muted mb-4"><?= $role === 'seller' ? 'Daftar sebagai penjual untuk mulai unggah properti.' : 'Daftar sebagai pembeli untuk mulai mencari properti.' ?></p>
+
+    <div class="mb-3">
+        <label class="form-label">Daftar Sebagai</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="roleBuyer" value="buyer" <?= $role === 'buyer' ? 'checked' : '' ?> />
+            <label class="form-check-label" for="roleBuyer">Buyer</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="roleSeller" value="seller" <?= $role === 'seller' ? 'checked' : '' ?> />
+            <label class="form-check-label" for="roleSeller">Seller</label>
+        </div>
+    </div>
 
     <?php if (session()->getFlashdata('error')): ?>
         <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>

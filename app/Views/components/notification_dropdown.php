@@ -112,7 +112,7 @@ unset($note);
                 </li>
             <?php endforeach; ?>
             <li class="px-3 py-2 text-center">
-                <a class="text-decoration-none small" href="<?= $userId ? site_url('user/dashboard') : site_url('login') ?>">Lihat semua notifikasi</a>
+                <a class="text-decoration-none small" href="<?= $userId ? site_url('user/dashboard') : site_url('login/buyer') ?>">Lihat semua notifikasi</a>
             </li>
         <?php endif; ?>
     </ul>
