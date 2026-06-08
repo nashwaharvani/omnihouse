@@ -1,4 +1,4 @@
-﻿<?php $title = 'Dashboard Seller - OMNIHOUSE' ?>
+<?php $title = 'Dashboard Seller - OMNIHOUSE' ?>
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <div class="container py-4">
@@ -29,27 +29,53 @@
         <p class="text-muted mb-0">Data terbaru 6 bulan terakhir</p>
       </div>
       <div class="sales-chart-legend">
-        <span><span class="legend-dot legend-active"></span> Properti Aktif</span>
-        <span><span class="legend-dot legend-sold"></span> Properti Terjual</span>
-        <span><span class="legend-dot legend-revenue"></span> Pendapatan</span>
+        <span><span class="legend-dot legend-sales"></span> Properti Terjual</span>
       </div>
     </div>
 
-    <div class="sales-chart-grid">
-      <?php $maxValue = max(array_merge(array_column($monthlyStats, 'active'), array_column($monthlyStats, 'sold'), [1])); ?>
-      <?php foreach ($monthlyStats as $month): ?>
-        <?php $activeHeight = (int) (($month['active'] / $maxValue) * 180); ?>
-        <?php $soldHeight = (int) (($month['sold'] / $maxValue) * 180); ?>
-        <div class="sales-chart-column">
-          <div class="sales-chart-bar active" style="height: <?= esc($activeHeight) ?>px;">
-            <span><?= esc($month['active']) ?> aktif</span>
+    <?php
+      $values = array_map(static fn ($row) => (int) ($row['sold'] ?? 0), $monthlyStats ?? []);
+      $labels = array_map(static fn ($row) => (string) ($row['label'] ?? ''), $monthlyStats ?? []);
+      $count = count($values);
+      $maxValue = max(array_merge($values, [1]));
+
+      $vbW = 720;
+      $vbH = 240;
+      $padX = 28;
+      $padY = 22;
+      $innerW = $vbW - ($padX * 2);
+      $innerH = $vbH - ($padY * 2);
+      $stepX = $count > 1 ? ($innerW / ($count - 1)) : 0;
+
+      $points = [];
+      $circles = [];
+      for ($i = 0; $i < $count; $i++) {
+          $v = (int) ($values[$i] ?? 0);
+          $x = $padX + ($stepX * $i);
+          $y = $padY + (($maxValue - $v) / $maxValue) * $innerH;
+          $points[] = number_format($x, 2, '.', '') . ',' . number_format($y, 2, '.', '');
+          $circles[] = ['x' => $x, 'y' => $y, 'v' => $v];
+      }
+      $polylinePoints = implode(' ', $points);
+    ?>
+
+    <div class="sales-line-wrap">
+      <svg class="sales-line-chart" viewBox="0 0 <?= esc($vbW) ?> <?= esc($vbH) ?>" preserveAspectRatio="none" role="img" aria-label="Grafik penjualan 6 bulan">
+        <line x1="<?= esc($padX) ?>" y1="<?= esc($vbH - $padY) ?>" x2="<?= esc($vbW - $padX) ?>" y2="<?= esc($vbH - $padY) ?>" stroke="rgba(148, 163, 184, 0.6)" stroke-width="2" />
+        <polyline points="<?= esc($polylinePoints) ?>" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <?php foreach ($circles as $c): ?>
+          <circle cx="<?= esc($c['x']) ?>" cy="<?= esc($c['y']) ?>" r="5" fill="#ffffff" stroke="var(--primary)" stroke-width="3" />
+        <?php endforeach; ?>
+      </svg>
+
+      <div class="sales-line-labels">
+        <?php foreach ($labels as $i => $label): ?>
+          <div class="sales-line-label" title="<?= esc($label) ?>">
+            <div class="sales-line-value"><?= esc($values[$i] ?? 0) ?></div>
+            <div class="sales-line-month"><?= esc($label) ?></div>
           </div>
-          <div class="sales-chart-bar sold" style="height: <?= esc($soldHeight) ?>px;">
-            <span><?= esc($month['sold']) ?> terjual</span>
-          </div>
-          <div class="sales-chart-label"><?= esc($month['label']) ?></div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
 
     <div class="mt-4">
@@ -58,6 +84,38 @@
         <div class="text-muted">Properti aktif: <strong><?= esc($totalActive) ?></strong></div>
       </div>
     </div>
+  </div>
+
+  <div class="card shadow-sm border-0 rounded-4 p-3 mb-4">
+    <h5 class="fw-semibold mb-3">Pemesanan Terbaru</h5>
+    <?php if (empty($recentOrders ?? [])): ?>
+      <div class="text-center py-4 text-muted">Belum ada pemesanan.</div>
+    <?php else: ?>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Properti</th>
+              <th>Pembeli</th>
+              <th>Jenis</th>
+              <th>Nominal</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach (($recentOrders ?? []) as $order): ?>
+              <tr>
+                <td class="fw-semibold"><?= esc($order['property_title'] ?? '-') ?></td>
+                <td><?= esc($order['buyer_name'] ?? '-') ?></td>
+                <td class="text-capitalize"><?= esc($order['payment_type'] ?? '-') ?></td>
+                <td><?= formatRupiah((float) ($order['amount'] ?? 0)) ?></td>
+                <td class="text-muted"><?= esc($order['created_at'] ?? '-') ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    <?php endif; ?>
   </div>
 
   <div class="card shadow-sm border-0 rounded-4 p-3">

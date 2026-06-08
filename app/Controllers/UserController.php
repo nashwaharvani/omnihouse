@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MessageModel;
+use App\Models\OrderModel;
 use App\Models\PropertyModel;
 use App\Models\UserModel;
 
@@ -11,12 +12,14 @@ class UserController extends BaseController
     protected $userModel;
     protected $propertyModel;
     protected $messageModel;
+    protected $orderModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->propertyModel = new PropertyModel();
         $this->messageModel = new MessageModel();
+        $this->orderModel = new OrderModel();
     }
 
     public function dashboard()
@@ -30,10 +33,12 @@ class UserController extends BaseController
         $userId = session()->get('user_id');
         $messages = $this->messageModel->where('sender_id', $userId)->orderBy('created_at', 'DESC')->findAll();
         $recommendedProperties = $this->propertyModel->getLatestProperties(6);
+        $ordersCount = $this->orderModel->where('buyer_id', (int) $userId)->countAllResults();
 
         return view('user/dashboard', [
             'messages' => $messages,
             'recommendedProperties' => $recommendedProperties,
+            'ordersCount' => $ordersCount,
         ]);
     }
 

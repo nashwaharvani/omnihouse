@@ -10,6 +10,13 @@
     $kamarMandi = $property['bathrooms'] ?? ($property->bathrooms ?? 0);
     $harga = $property['price'] ?? ($property->price ?? 0);
     $slug = $property['slug'] ?? ($property->slug ?? '');
+
+    $statusBadge = 'bg-success-subtle text-success';
+    if ($status === 'dipesan') {
+        $statusBadge = 'bg-warning-subtle text-warning';
+    } elseif ($status === 'terjual') {
+        $statusBadge = 'bg-secondary-subtle text-secondary';
+    }
     ?>
 
     <img src="<?= esc($foto) ?>" class="card-img-top" alt="<?= esc($judul) ?>" loading="lazy" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='<?= esc(propertyPlaceholder()) ?>'; console.warn('Gagal memuat kartu properti:', this.src);">
@@ -17,7 +24,7 @@
     <div class="card-body d-flex flex-column">
         <div class="d-flex justify-content-between gap-2 mb-2">
             <span class="badge bg-primary-subtle text-primary"><?= esc($tipe) ?></span>
-            <span class="badge bg-success-subtle text-success"><?= esc($status) ?></span>
+            <span class="badge <?= esc($statusBadge) ?>"><?= esc($status) ?></span>
         </div>
 
         <h5 class="card-title mb-2"><?= esc($judul) ?></h5>

@@ -20,8 +20,8 @@
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('dashboard/seller') ?>">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('my-properties') ?>">Kelola Properti</a></li>
                     <?php else: ?>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('search?status=dijual') ?>">Dijual</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('search?status=disewa') ?>">Disewa</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="<?= site_url('search?status=dijual') ?>">Dijual</a></li> -->
+                        <!-- <li class="nav-item"><a class="nav-link" href="<?= site_url('search?status=disewa') ?>">Disewa</a></li> -->
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('search') ?>">Properti Baru</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('turun-harga') ?>">Turun Harga</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('kalkulator-harga') ?>">KPR</a></li>
@@ -48,6 +48,9 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow">
                                 <li><a class="dropdown-item" href="<?= site_url('user/profil') ?>">Profil</a></li>
+                                <?php if (!($userRole === 'seller' || $userRole === 'admin')): ?>
+                                    <li><a class="dropdown-item" href="<?= site_url('user/pemesanan') ?>">Pemesanan</a></li>
+                                <?php endif; ?>
                                 <li>
                                     <a class="dropdown-item" href="<?= site_url('user/inbox') ?>">
                                         Inbox

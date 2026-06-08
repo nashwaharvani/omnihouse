@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PropertyImageModel;
 use App\Models\PropertyModel;
 use App\Models\MessageModel;
+use App\Models\OrderModel;
 use App\Models\UserModel;
 
 
@@ -13,6 +14,7 @@ class SellerController extends BaseController
     protected $propertyModel;
     protected $propertyImageModel;
     protected $messageModel;
+    protected $orderModel;
     protected $userModel;
 
     public function __construct()
@@ -20,6 +22,7 @@ class SellerController extends BaseController
         $this->propertyModel = new PropertyModel();
         $this->propertyImageModel = new PropertyImageModel();
         $this->messageModel = new MessageModel();
+        $this->orderModel = new OrderModel();
         $this->userModel = new UserModel();
     }
 
@@ -43,8 +46,26 @@ class SellerController extends BaseController
         $totalMessages = $this->messageModel->where('receiver_id', $userId)->countAllResults();
 
         $totalActive = 0;
-        $totalSold = 0;
-        $totalRevenue = 0;
+        foreach ($properties as $property) {
+            $isActive = !empty($property['is_active']) && (int) $property['is_active'] === 1 && !in_array(($property['status'] ?? ''), ['dipesan', 'terjual'], true);
+            if ($isActive) {
+                $totalActive++;
+            }
+        }
+
+        $totalSold = $this->orderModel
+            ->where('seller_id', (int) $userId)
+            ->where('payment_type', 'pelunasan')
+            ->where('status', 'paid')
+            ->countAllResults();
+
+        $revenueRow = $this->orderModel
+            ->selectSum('amount', 'total')
+            ->where('seller_id', (int) $userId)
+            ->where('status', 'paid')
+            ->first();
+
+        $totalRevenue = (float) ($revenueRow['total'] ?? 0);
         $statusCounts = [
             'dijual' => 0,
             'disewa' => 0,
@@ -65,16 +86,10 @@ class SellerController extends BaseController
         }
 
         foreach ($properties as $property) {
-            $isActive = !empty($property['is_active']) && $property['is_active'] == 1;
-            if ($isActive) {
-                $totalActive++;
-            } else {
-                $totalSold++;
-                $totalRevenue += (float) $property['price'];
-            }
+            $isActive = !empty($property['is_active']) && (int) $property['is_active'] === 1 && ($property['status'] ?? '') !== 'dipesan';
 
             if ($isActive) {
-                if ($property['status'] === 'disewa') {
+                if (($property['status'] ?? '') === 'disewa') {
                     $statusCounts['disewa']++;
                 } else {
                     $statusCounts['dijual']++;
@@ -82,24 +97,33 @@ class SellerController extends BaseController
             } else {
                 $statusCounts['nonaktif']++;
             }
-
-            $monthKey = date('Y-m', strtotime($property['created_at'] ?? 'now'));
-            if (!isset($monthlyStats[$monthKey])) {
-                $monthlyStats[$monthKey] = [
-                    'label' => date('M Y', strtotime($property['created_at'] ?? 'now')),
-                    'active' => 0,
-                    'sold' => 0,
-                    'revenue' => 0,
-                ];
-            }
-
-            if ($isActive) {
-                $monthlyStats[$monthKey]['active']++;
-            } else {
-                $monthlyStats[$monthKey]['sold']++;
-                $monthlyStats[$monthKey]['revenue'] += (float) $property['price'];
-            }
         }
+
+        $orders = $this->orderModel
+            ->where('seller_id', (int) $userId)
+            ->where('status', 'paid')
+            ->findAll();
+
+        foreach ($orders as $order) {
+            $monthKey = date('Y-m', strtotime($order['created_at'] ?? 'now'));
+            if (!isset($monthlyStats[$monthKey])) {
+                continue;
+            }
+            if (($order['payment_type'] ?? '') === 'pelunasan') {
+                $monthlyStats[$monthKey]['sold']++;
+            }
+            $monthlyStats[$monthKey]['revenue'] += (float) ($order['amount'] ?? 0);
+        }
+
+        $recentOrders = $this->orderModel
+            ->select('orders.*, properties.title as property_title, buyer.name as buyer_name')
+            ->join('properties', 'properties.id = orders.property_id', 'left')
+            ->join('users as buyer', 'buyer.id = orders.buyer_id', 'left')
+            ->where('orders.seller_id', (int) $userId)
+            ->where('orders.status', 'paid')
+            ->orderBy('orders.created_at', 'DESC')
+            ->limit(8)
+            ->findAll();
 
         return view('seller/dashboard', [
             'user' => $user,
@@ -112,6 +136,7 @@ class SellerController extends BaseController
             'totalMessages' => $totalMessages,
             'statusCounts' => $statusCounts,
             'monthlyStats' => array_values($monthlyStats),
+            'recentOrders' => $recentOrders,
         ]);
     }
 

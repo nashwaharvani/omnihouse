@@ -46,7 +46,7 @@ class PropertyModel extends Model
         'title'           => 'required|min_length[3]|max_length[150]',
         'price'           => 'required|numeric',
         'type'            => 'required|in_list[rumah,kontrakan,apartemen,kost,ruko,tanah]',
-        'status'          => 'permit_empty|in_list[dijual,disewa]',
+        'status'          => 'permit_empty|in_list[dijual,disewa,dipesan,terjual]',
         'city'            => 'required|min_length[2]|max_length[100]',
         'whatsapp_number' => 'required|max_length[20]',
     ];
@@ -67,6 +67,7 @@ class PropertyModel extends Model
             ->join('property_images', 'property_images.property_id = properties.id AND property_images.is_primary = 1', 'left')
             ->where('properties.deleted_at', null)
             ->where('properties.is_active', 1)
+            ->whereNotIn('properties.status', ['dipesan', 'terjual'])
             ->orderBy('properties.created_at', 'DESC')
             ->limit($limit)
             ->findAll();
@@ -77,7 +78,8 @@ class PropertyModel extends Model
         $builder = $this->select('properties.*, property_images.image_path as image')
             ->join('property_images', 'property_images.property_id = properties.id AND property_images.is_primary = 1', 'left')
             ->where('properties.deleted_at', null)
-            ->where('properties.is_active', 1);
+            ->where('properties.is_active', 1)
+            ->whereNotIn('properties.status', ['dipesan', 'terjual']);
 
         if (trim($keyword) !== '') {
             $builder->groupStart()
@@ -166,6 +168,7 @@ class PropertyModel extends Model
             ->join('property_images', 'property_images.property_id = properties.id AND property_images.is_primary = 1', 'left')
             ->where('properties.deleted_at', null)
             ->where('properties.is_active', 1)
+            ->whereNotIn('properties.status', ['dipesan', 'terjual'])
             ->orderBy('properties.created_at', 'DESC')
             ->findAll();
     }

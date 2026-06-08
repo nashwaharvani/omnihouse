@@ -92,6 +92,8 @@ defined('PROPERTY_TYPES') || define('PROPERTY_TYPES', [
 defined('PROPERTY_STATUSES') || define('PROPERTY_STATUSES', [
     'dijual' => 'Dijual',
     'disewa' => 'Disewa',
+    'dipesan' => 'Dipesan',
+    'terjual' => 'Terjual',
     'ready' => 'Ready',
 ]);
 
@@ -110,3 +112,4 @@ defined('CITIES') || define('CITIES', [
 
 defined('UPLOAD_PATH') || define('UPLOAD_PATH', 'uploads/properties/');
 defined('MAX_UPLOAD_SIZE') || define('MAX_UPLOAD_SIZE', 2048);
+defined('ORDER_DP_RATE') || define('ORDER_DP_RATE', 0.1);

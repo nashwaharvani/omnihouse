@@ -1,4 +1,4 @@
-﻿<?php $title = 'Dashboard Pembeli - OMNIHOUSE' ?>
+<?php $title = 'Dashboard Pembeli - OMNIHOUSE' ?>
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <section class="py-5">
@@ -34,6 +34,13 @@
                                 <p class="display-6 fw-bold mb-0">Tersedia</p>
                             </div>
                         </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card border-0 rounded-4 shadow-sm p-3 h-100 d-flex flex-column">
+                                <h6 class="mb-2">Pemesanan</h6>
+                                <p class="display-6 fw-bold mb-3"><?= (int) ($ordersCount ?? 0) ?></p>
+                                <a href="<?= site_url('user/pemesanan') ?>" class="btn btn-outline-primary mt-auto w-100">Lihat Pemesanan</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,7 +69,7 @@
                         <div class="row g-3">
                             <?php foreach ($recommendedProperties as $property): ?>
                                 <div class="col-md-6">
-                                    <?= $this->include('components/property-card', ['property' => $property]) ?>
+                                    <?= view('components/property-card', ['property' => $property]) ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>

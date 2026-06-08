@@ -45,11 +45,14 @@ $routes->group('user', ['filter' => 'auth'], function ($routes) {
     $routes->post('profil', 'UserController::profile');
     $routes->get('inbox', 'UserController::inbox');
     $routes->get('chat/(:num)/(:num)', 'UserController::conversation/$1/$2');
+    $routes->get('pemesanan', 'OrdersController::index');
 });
 
 $routes->group('', ['filter' => 'buyer'], function ($routes) {
     $routes->get('dashboard/buyer', 'UserController::dashboard');
     $routes->get('favorit', 'UserController::favorites');
+    $routes->post('properti/(:num)/pesan', 'OrdersController::create/$1');
+    $routes->post('pemesanan/(:num)/pelunasan', 'OrdersController::payOff/$1');
 });
 
 $routes->group('', ['filter' => 'seller'], function ($routes) {
@@ -61,6 +64,7 @@ $routes->group('seller', ['filter' => 'seller'], function ($routes) {
     $routes->get('dashboard', 'SellerController::dashboard');
     $routes->get('my-properties', 'SellerController::dashboard');
     $routes->get('dashboard/seller', 'SellerController::dashboard');
+    $routes->get('pemesanan', 'SellerController::orders');
     $routes->get('properti/tambah', 'SellerController::create');
     $routes->post('properti/tambah', 'SellerController::create');
     $routes->get('create', 'SellerController::create');
