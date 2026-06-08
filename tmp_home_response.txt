@@ -1,0 +1,1340 @@
+{
+    "title": "Error",
+    "type": "Error",
+    "code": 500,
+    "message": "Class \"ConfigServices\" not found",
+    "file": "C:\\xampp\\htdocs\\omnihouse\\app\\Helpers\\app_helper.php",
+    "line": 121,
+    "trace": [
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\app\\Controllers\\HomeController.php",
+            "line": 19,
+            "function": "getPopularCities",
+            "args": []
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\CodeIgniter.php",
+            "line": 974,
+            "function": "index",
+            "class": "App\\Controllers\\HomeController",
+            "type": "->",
+            "args": []
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\CodeIgniter.php",
+            "line": 520,
+            "function": "runController",
+            "class": "CodeIgniter\\CodeIgniter",
+            "type": "->",
+            "args": [
+                {
+                    "helpers": [
+                        "form",
+                        "url",
+                        "app"
+                    ],
+                    "request": {
+                        "protocolVersion": "1.1",
+                        "validProtocolVersions": [
+                            "1.0",
+                            "1.1",
+                            "2.0",
+                            "3.0"
+                        ],
+                        "body": null,
+                        "headers": {
+                            "Host": {
+                                "name": "Host",
+                                "value": "localhost:8080"
+                            },
+                            "User-Agent": {
+                                "name": "User-Agent",
+                                "value": "curl/8.19.0"
+                            },
+                            "Accept": {
+                                "name": "Accept",
+                                "value": "*/*"
+                            }
+                        },
+                        "headerMap": {
+                            "host": "Host",
+                            "user-agent": "User-Agent",
+                            "accept": "Accept"
+                        },
+                        "method": "GET",
+                        "uri": {
+                            "uriString": null,
+                            "baseURL": {
+                                "uriString": null,
+                                "baseURL": null,
+                                "segments": [],
+                                "scheme": "http",
+                                "user": null,
+                                "password": null,
+                                "host": "localhost",
+                                "port": 8080,
+                                "path": "/",
+                                "fragment": "",
+                                "query": [],
+                                "defaultPorts": {
+                                    "http": 80,
+                                    "https": 443,
+                                    "ftp": 21,
+                                    "sftp": 22
+                                },
+                                "showPassword": false,
+                                "silent": false,
+                                "rawQueryString": false
+                            },
+                            "segments": [],
+                            "scheme": "http",
+                            "user": null,
+                            "password": null,
+                            "host": "localhost",
+                            "port": 8080,
+                            "path": "/index.php/",
+                            "fragment": "",
+                            "query": [],
+                            "defaultPorts": {
+                                "http": 80,
+                                "https": 443,
+                                "ftp": 21,
+                                "sftp": 22
+                            },
+                            "showPassword": false,
+                            "silent": false,
+                            "rawQueryString": false,
+                            "basePathWithoutIndexPage": "/",
+                            "indexPage": "index.php",
+                            "baseSegments": [
+                                "index.php"
+                            ],
+                            "routePath": ""
+                        },
+                        "config": {
+                            "baseURL": "http://localhost:8080/",
+                            "allowedHostnames": [],
+                            "indexPage": "index.php",
+                            "uriProtocol": "REQUEST_URI",
+                            "permittedURIChars": "a-z 0-9~%.:_\\-",
+                            "defaultLocale": "en",
+                            "negotiateLocale": false,
+                            "supportedLocales": [
+                                "en"
+                            ],
+                            "appTimezone": "UTC",
+                            "charset": "UTF-8",
+                            "forceGlobalSecureRequests": false,
+                            "proxyIPs": [],
+                            "CSPEnabled": false
+                        },
+                        "ipAddress": "::1",
+                        "globals": {
+                            "server": {
+                                "DOCUMENT_ROOT": "C:\\xampp\\htdocs\\omnihouse\\public",
+                                "REMOTE_ADDR": "::1",
+                                "REMOTE_PORT": "59448",
+                                "SERVER_SOFTWARE": "PHP 8.2.12 Development Server",
+                                "SERVER_PROTOCOL": "HTTP/1.1",
+                                "SERVER_NAME": "localhost",
+                                "SERVER_PORT": "8080",
+                                "REQUEST_URI": "/",
+                                "REQUEST_METHOD": "GET",
+                                "SCRIPT_NAME": "/index.php",
+                                "SCRIPT_FILENAME": "C:\\xampp\\htdocs\\omnihouse\\public\\index.php",
+                                "PHP_SELF": "/index.php",
+                                "HTTP_HOST": "localhost:8080",
+                                "HTTP_USER_AGENT": "curl/8.19.0",
+                                "HTTP_ACCEPT": "*/*",
+                                "REQUEST_TIME_FLOAT": 1780063929.857514,
+                                "REQUEST_TIME": 1780063929,
+                                "CI_ENVIRONMENT": "development",
+                                "app.baseURL": "http://localhost:8080/",
+                                "database.default.hostname": "localhost",
+                                "database.default.database": "omnihouse_db",
+                                "database.default.username": "root",
+                                "database.default.password": "",
+                                "database.default.DBDriver": "MySQLi",
+                                "database.default.DBPrefix": "",
+                                "database.default.port": "3306",
+                                "QUERY_STRING": ""
+                            },
+                            "get": []
+                        },
+                        "path": "",
+                        "files": null,
+                        "negotiator": null,
+                        "defaultLocale": "en",
+                        "locale": "en",
+                        "validLocales": [
+                            "en"
+                        ],
+                        "oldInput": [],
+                        "userAgent": {
+                            "agent": "curl/8.19.0",
+                            "isBrowser": false,
+                            "isRobot": false,
+                            "isMobile": false,
+                            "config": {
+                                "platforms": {
+                                    "windows nt 10.0": "Windows 10",
+                                    "windows nt 6.3": "Windows 8.1",
+                                    "windows nt 6.2": "Windows 8",
+                                    "windows nt 6.1": "Windows 7",
+                                    "windows nt 6.0": "Windows Vista",
+                                    "windows nt 5.2": "Windows 2003",
+                                    "windows nt 5.1": "Windows XP",
+                                    "windows nt 5.0": "Windows 2000",
+                                    "windows nt 4.0": "Windows NT 4.0",
+                                    "winnt4.0": "Windows NT 4.0",
+                                    "winnt 4.0": "Windows NT",
+                                    "winnt": "Windows NT",
+                                    "windows 98": "Windows 98",
+                                    "win98": "Windows 98",
+                                    "windows 95": "Windows 95",
+                                    "win95": "Windows 95",
+                                    "windows phone": "Windows Phone",
+                                    "windows": "Unknown Windows OS",
+                                    "android": "Android",
+                                    "blackberry": "BlackBerry",
+                                    "iphone": "iOS",
+                                    "ipad": "iOS",
+                                    "ipod": "iOS",
+                                    "os x": "Mac OS X",
+                                    "ppc mac": "Power PC Mac",
+                                    "freebsd": "FreeBSD",
+                                    "ppc": "Macintosh",
+                                    "linux": "Linux",
+                                    "debian": "Debian",
+                                    "sunos": "Sun Solaris",
+                                    "beos": "BeOS",
+                                    "apachebench": "ApacheBench",
+                                    "aix": "AIX",
+                                    "irix": "Irix",
+                                    "osf": "DEC OSF",
+                                    "hp-ux": "HP-UX",
+                                    "netbsd": "NetBSD",
+                                    "bsdi": "BSDi",
+                                    "openbsd": "OpenBSD",
+                                    "gnu": "GNU/Linux",
+                                    "unix": "Unknown Unix OS",
+                                    "symbian": "Symbian OS"
+                                },
+                                "browsers": {
+                                    "OPR": "Opera",
+                                    "Flock": "Flock",
+                                    "Edge": "Spartan",
+                                    "Edg": "Edge",
+                                    "Chrome": "Chrome",
+                                    "Opera.*?Version": "Opera",
+                                    "Opera": "Opera",
+                                    "MSIE": "Internet Explorer",
+                                    "Internet Explorer": "Internet Explorer",
+                                    "Trident.* rv": "Internet Explorer",
+                                    "Shiira": "Shiira",
+                                    "Firefox": "Firefox",
+                                    "Chimera": "Chimera",
+                                    "Phoenix": "Phoenix",
+                                    "Firebird": "Firebird",
+                                    "Camino": "Camino",
+                                    "Netscape": "Netscape",
+                                    "OmniWeb": "OmniWeb",
+                                    "Safari": "Safari",
+                                    "Mozilla": "Mozilla",
+                                    "Konqueror": "Konqueror",
+                                    "icab": "iCab",
+                                    "Lynx": "Lynx",
+                                    "Links": "Links",
+                                    "hotjava": "HotJava",
+                                    "amaya": "Amaya",
+                                    "IBrowse": "IBrowse",
+                                    "Maxthon": "Maxthon",
+                                    "Ubuntu": "Ubuntu Web Browser",
+                                    "Vivaldi": "Vivaldi"
+                                },
+                                "mobiles": {
+                                    "mobileexplorer": "Mobile Explorer",
+                                    "palmsource": "Palm",
+                                    "palmscape": "Palmscape",
+                                    "motorola": "Motorola",
+                                    "nokia": "Nokia",
+                                    "palm": "Palm",
+                                    "iphone": "Apple iPhone",
+                                    "ipad": "iPad",
+                                    "ipod": "Apple iPod Touch",
+                                    "sony": "Sony Ericsson",
+                                    "ericsson": "Sony Ericsson",
+                                    "blackberry": "BlackBerry",
+                                    "cocoon": "O2 Cocoon",
+                                    "blazer": "Treo",
+                                    "lg": "LG",
+                                    "amoi": "Amoi",
+                                    "xda": "XDA",
+                                    "mda": "MDA",
+                                    "vario": "Vario",
+                                    "htc": "HTC",
+                                    "samsung": "Samsung",
+                                    "sharp": "Sharp",
+                                    "sie-": "Siemens",
+                                    "alcatel": "Alcatel",
+                                    "benq": "BenQ",
+                                    "ipaq": "HP iPaq",
+                                    "mot-": "Motorola",
+                                    "playstation portable": "PlayStation Portable",
+                                    "playstation 3": "PlayStation 3",
+                                    "playstation vita": "PlayStation Vita",
+                                    "hiptop": "Danger Hiptop",
+                                    "nec-": "NEC",
+                                    "panasonic": "Panasonic",
+                                    "philips": "Philips",
+                                    "sagem": "Sagem",
+                                    "sanyo": "Sanyo",
+                                    "spv": "SPV",
+                                    "zte": "ZTE",
+                                    "sendo": "Sendo",
+                                    "nintendo dsi": "Nintendo DSi",
+                                    "nintendo ds": "Nintendo DS",
+                                    "nintendo 3ds": "Nintendo 3DS",
+                                    "wii": "Nintendo Wii",
+                                    "open web": "Open Web",
+                                    "openweb": "OpenWeb",
+                                    "android": "Android",
+                                    "symbian": "Symbian",
+                                    "SymbianOS": "SymbianOS",
+                                    "elaine": "Palm",
+                                    "series60": "Symbian S60",
+                                    "windows ce": "Windows CE",
+                                    "obigo": "Obigo",
+                                    "netfront": "Netfront Browser",
+                                    "openwave": "Openwave Browser",
+                                    "mobilexplorer": "Mobile Explorer",
+                                    "operamini": "Opera Mini",
+                                    "opera mini": "Opera Mini",
+                                    "opera mobi": "Opera Mobile",
+                                    "fennec": "Firefox Mobile",
+                                    "digital paths": "Digital Paths",
+                                    "avantgo": "AvantGo",
+                                    "xiino": "Xiino",
+                                    "novarra": "Novarra Transcoder",
+                                    "vodafone": "Vodafone",
+                                    "docomo": "NTT DoCoMo",
+                                    "o2": "O2",
+                                    "mobile": "Generic Mobile",
+                                    "wireless": "Generic Mobile",
+                                    "j2me": "Generic Mobile",
+                                    "midp": "Generic Mobile",
+                                    "cldc": "Generic Mobile",
+                                    "up.link": "Generic Mobile",
+                                    "up.browser": "Generic Mobile",
+                                    "smartphone": "Generic Mobile",
+                                    "cellphone": "Generic Mobile"
+                                },
+                                "robots": {
+                                    "googlebot": "Googlebot",
+                                    "google-pagerenderer": "Google Page Renderer",
+                                    "google-read-aloud": "Google Read Aloud",
+                                    "google-safety": "Google Safety Bot",
+                                    "msnbot": "MSNBot",
+                                    "baiduspider": "Baiduspider",
+                                    "bingbot": "Bing",
+                                    "bingpreview": "BingPreview",
+                                    "slurp": "Inktomi Slurp",
+                                    "yahoo": "Yahoo",
+                                    "ask jeeves": "Ask Jeeves",
+                                    "fastcrawler": "FastCrawler",
+                                    "infoseek": "InfoSeek Robot 1.0",
+                                    "lycos": "Lycos",
+                                    "yandex": "YandexBot",
+                                    "mediapartners-google": "MediaPartners Google",
+                                    "CRAZYWEBCRAWLER": "Crazy Webcrawler",
+                                    "adsbot-google": "AdsBot Google",
+                                    "feedfetcher-google": "Feedfetcher Google",
+                                    "curious george": "Curious George",
+                                    "ia_archiver": "Alexa Crawler",
+                                    "MJ12bot": "Majestic-12",
+                                    "Uptimebot": "Uptimebot",
+                                    "duckduckbot": "DuckDuckBot",
+                                    "sogou": "Sogou Spider",
+                                    "exabot": "Exabot",
+                                    "bot": "Generic Bot",
+                                    "crawler": "Generic Crawler",
+                                    "spider": "Generic Spider"
+                                }
+                            },
+                            "platform": "Unknown Platform",
+                            "browser": "",
+                            "version": "",
+                            "mobile": "",
+                            "robot": "",
+                            "referrer": null
+                        }
+                    },
+                    "response": {
+                        "protocolVersion": "1.1",
+                        "validProtocolVersions": [
+                            "1.0",
+                            "1.1",
+                            "2.0",
+                            "3.0"
+                        ],
+                        "body": null,
+                        "headers": {
+                            "Content-Type": {
+                                "name": "Content-Type",
+                                "value": "text/html; charset=UTF-8"
+                            }
+                        },
+                        "headerMap": {
+                            "content-type": "Content-Type"
+                        },
+                        "reason": "Internal Server Error",
+                        "statusCode": 500,
+                        "pretend": false,
+                        "CSP": {
+                            "directives": {
+                                "base-uri": "baseURI",
+                                "child-src": "childSrc",
+                                "connect-src": "connectSrc",
+                                "default-src": "defaultSrc",
+                                "font-src": "fontSrc",
+                                "form-action": "formAction",
+                                "frame-ancestors": "frameAncestors",
+                                "frame-src": "frameSrc",
+                                "img-src": "imageSrc",
+                                "media-src": "mediaSrc",
+                                "object-src": "objectSrc",
+                                "plugin-types": "pluginTypes",
+                                "script-src": "scriptSrc",
+                                "style-src": "styleSrc",
+                                "sandbox": "sandbox",
+                                "manifest-src": "manifestSrc",
+                                "script-src-elem": "scriptSrcElem",
+                                "script-src-attr": "scriptSrcAttr",
+                                "style-src-elem": "styleSrcElem",
+                                "style-src-attr": "styleSrcAttr",
+                                "worker-src": "workerSrc",
+                                "report-uri": "reportURI",
+                                "report-to": "reportTo"
+                            },
+                            "baseURI": null,
+                            "childSrc": "self",
+                            "connectSrc": "self",
+                            "defaultSrc": null,
+                            "fontSrc": null,
+                            "formAction": "self",
+                            "frameAncestors": null,
+                            "frameSrc": null,
+                            "imageSrc": "self",
+                            "mediaSrc": null,
+                            "objectSrc": "self",
+                            "pluginTypes": null,
+                            "scriptSrc": {
+                                "self": false
+                            },
+                            "styleSrc": {
+                                "self": false
+                            },
+                            "sandbox": null,
+                            "reportURI": null,
+                            "reportTo": null,
+                            "manifestSrc": null,
+                            "scriptSrcElem": "self",
+                            "scriptSrcAttr": "self",
+                            "styleSrcElem": "self",
+                            "styleSrcAttr": "self",
+                            "workerSrc": [],
+                            "upgradeInsecureRequests": false,
+                            "reportOnly": false,
+                            "validSources": [
+                                "self",
+                                "none",
+                                "unsafe-inline",
+                                "unsafe-eval",
+                                "strict-dynamic",
+                                "unsafe-hashes",
+                                "report-sample",
+                                "unsafe-allow-redirects",
+                                "wasm-unsafe-eval",
+                                "trusted-types-eval",
+                                "report-sha256",
+                                "report-sha384",
+                                "report-sha512"
+                            ],
+                            "nonces": [],
+                            "styleNonce": null,
+                            "scriptNonce": null,
+                            "styleNonceTag": "",
+                            "scriptNonceTag": "",
+                            "autoNonce": true,
+                            "tempHeaders": [],
+                            "reportOnlyHeaders": [],
+                            "CSPEnabled": false,
+                            "reportingEndpoints": []
+                        },
+                        "cookieStore": {
+                            "cookies": []
+                        },
+                        "bodyFormat": "html"
+                    },
+                    "logger": {
+                        "logLevels": {
+                            "emergency": 1,
+                            "alert": 2,
+                            "critical": 3,
+                            "error": 4,
+                            "warning": 5,
+                            "notice": 6,
+                            "info": 7,
+                            "debug": 8
+                        },
+                        "loggableLevels": [
+                            "emergency",
+                            "alert",
+                            "critical",
+                            "error",
+                            "warning",
+                            "notice",
+                            "info",
+                            "debug"
+                        ],
+                        "filePermissions": 420,
+                        "dateFormat": "Y-m-d H:i:s",
+                        "fileExt": null,
+                        "handlers": {
+                            "CodeIgniter\\Log\\Handlers\\FileHandler": {
+                                "handles": [
+                                    "critical",
+                                    "alert",
+                                    "emergency",
+                                    "debug",
+                                    "error",
+                                    "info",
+                                    "notice",
+                                    "warning"
+                                ],
+                                "dateFormat": "Y-m-d H:i:s",
+                                "path": "C:\\xampp\\htdocs\\omnihouse\\writable\\logs/",
+                                "fileExtension": "log",
+                                "filePermissions": 420
+                            }
+                        },
+                        "handlerConfig": {
+                            "CodeIgniter\\Log\\Handlers\\FileHandler": {
+                                "handles": [
+                                    "critical",
+                                    "alert",
+                                    "emergency",
+                                    "debug",
+                                    "error",
+                                    "info",
+                                    "notice",
+                                    "warning"
+                                ],
+                                "fileExtension": "",
+                                "filePermissions": 420,
+                                "path": ""
+                            }
+                        },
+                        "logCache": [
+                            {
+                                "level": "debug",
+                                "msg": "Session: Class initialized using 'CodeIgniter\\Session\\Handlers\\FileHandler' driver."
+                            },
+                            {
+                                "level": "critical",
+                                "msg": "Error: Class \"ConfigServices\" not found\n[Method: GET, Route: /]\nin APPPATH\\Helpers\\app_helper.php on line 121.\n 1 APPPATH\\Controllers\\HomeController.php(19): getPopularCities()\n 2 SYSTEMPATH\\CodeIgniter.php(974): App\\Controllers\\HomeController->index()\n 3 SYSTEMPATH\\CodeIgniter.php(520): CodeIgniter\\CodeIgniter->runController(Object(App\\Controllers\\HomeController))\n 4 SYSTEMPATH\\CodeIgniter.php(363): CodeIgniter\\CodeIgniter->handleRequest(null, Object(Config\\Cache), false)\n 5 SYSTEMPATH\\Boot.php(417): CodeIgniter\\CodeIgniter->run()\n 6 SYSTEMPATH\\Boot.php(68): CodeIgniter\\Boot::runCodeIgniter(Object(CodeIgniter\\CodeIgniter))\n 7 FCPATH\\index.php(59): CodeIgniter\\Boot::bootWeb(Object(Config\\Paths))\n 8 SYSTEMPATH\\rewrite.php(44): require_once('C:\\\\xampp\\\\htdocs\\\\omnihouse\\\\public\\\\index.php')"
+                            }
+                        ],
+                        "cacheLogs": true
+                    },
+                    "forceHTTPS": 0,
+                    "validator": null,
+                    "session": {
+                        "driver": {
+                            "fingerprint": "d41d8cd98f00b204e9800998ecf8427e",
+                            "lock": false,
+                            "cookiePrefix": "",
+                            "cookieDomain": "",
+                            "cookiePath": "/",
+                            "cookieSecure": false,
+                            "cookieName": "ci_session",
+                            "matchIP": false,
+                            "sessionID": "14bf91d562860db6c1ca7c692f55c8c1",
+                            "savePath": "C:\\xampp\\htdocs\\omnihouse\\writable\\session",
+                            "ipAddress": "::1",
+                            "logger": "[CodeIgniter\\Log\\Logger Object *RECURSION*]",
+                            "fileHandle": "[Resource #153]",
+                            "filePath": "C:\\xampp\\htdocs\\omnihouse\\writable\\session/ci_session",
+                            "fileNew": true,
+                            "sessionIDRegex": "[0-9a-f]{32}"
+                        },
+                        "cookie": {
+                            "prefix": "",
+                            "name": "ci_session",
+                            "value": "",
+                            "expires": 1780071129,
+                            "path": "/",
+                            "domain": "",
+                            "secure": false,
+                            "httponly": true,
+                            "samesite": "Lax",
+                            "raw": false
+                        },
+                        "sidRegexp": "[0-9a-f]{32}",
+                        "config": {
+                            "driver": "CodeIgniter\\Session\\Handlers\\FileHandler",
+                            "cookieName": "ci_session",
+                            "expiration": 7200,
+                            "savePath": "C:\\xampp\\htdocs\\omnihouse\\writable\\session",
+                            "matchIP": false,
+                            "timeToUpdate": 300,
+                            "regenerateDestroy": false,
+                            "DBGroup": null,
+                            "lockRetryInterval": 100000,
+                            "lockMaxRetries": 300
+                        },
+                        "logger": "[CodeIgniter\\Log\\Logger Object *RECURSION*]"
+                    },
+                    "propertyModel": {
+                        "pager": null,
+                        "db": {
+                            "DSN": "",
+                            "port": 3306,
+                            "hostname": "localhost",
+                            "username": "root",
+                            "password": "",
+                            "database": "omnihouse_db",
+                            "DBDriver": "MySQLi",
+                            "subdriver": null,
+                            "DBPrefix": "",
+                            "pConnect": false,
+                            "DBDebug": true,
+                            "charset": "utf8mb4",
+                            "DBCollat": "utf8mb4_general_ci",
+                            "swapPre": "",
+                            "encrypt": false,
+                            "compress": false,
+                            "strictOn": false,
+                            "failover": [],
+                            "lastQuery": {
+                                "originalQueryString": "SELECT `properties`.*\nFROM `properties`\nWHERE `properties`.`deleted_at` IS NULL\nAND `properties`.`is_active` = :properties.is_active:\nAND `properties`.`deleted_at` IS NULL\nORDER BY `properties`.`created_at` DESC\n LIMIT 8",
+                                "finalQueryString": "SELECT `properties`.*\nFROM `properties`\nWHERE `properties`.`deleted_at` IS NULL\nAND `properties`.`is_active` = 1\nAND `properties`.`deleted_at` IS NULL\nORDER BY `properties`.`created_at` DESC\n LIMIT 8",
+                                "binds": {
+                                    "properties.is_active": [
+                                        1,
+                                        true
+                                    ]
+                                },
+                                "bindMarker": "?",
+                                "startTime": 1780063929.947959,
+                                "endTime": 1780063929.948847,
+                                "errorCode": null,
+                                "errorString": null,
+                                "db": "[CodeIgniter\\Database\\MySQLi\\Connection Object *RECURSION*]"
+                            },
+                            "connID": [],
+                            "resultID": [],
+                            "protectIdentifiers": true,
+                            "reservedIdentifiers": [
+                                "*"
+                            ],
+                            "escapeChar": "`",
+                            "likeEscapeStr": " ESCAPE '%s' ",
+                            "likeEscapeChar": "!",
+                            "pregEscapeChar": {
+                                "1": "`",
+                                "0": "`",
+                                "3": "`",
+                                "2": "`"
+                            },
+                            "dataCache": [],
+                            "connectTime": 1780063929.935996,
+                            "connectDuration": 0.010635852813720703,
+                            "pretend": false,
+                            "transEnabled": true,
+                            "transStrict": true,
+                            "transDepth": 0,
+                            "transStatus": true,
+                            "transFailure": false,
+                            "transException": false,
+                            "aliasedTables": [],
+                            "queryClass": "CodeIgniter\\Database\\Query",
+                            "dateFormat": {
+                                "date": "Y-m-d",
+                                "datetime": "Y-m-d H:i:s",
+                                "datetime-ms": "Y-m-d H:i:s.v",
+                                "datetime-us": "Y-m-d H:i:s.u",
+                                "time": "H:i:s"
+                            },
+                            "deleteHack": true,
+                            "mysqli": "[mysqli Object *RECURSION*]",
+                            "resultMode": 0,
+                            "numberNative": false,
+                            "foundRows": false
+                        },
+                        "insertID": 0,
+                        "DBGroup": null,
+                        "returnType": "array",
+                        "tempReturnType": "array",
+                        "casts": [],
+                        "castHandlers": [],
+                        "converter": null,
+                        "protectFields": true,
+                        "allowedFields": [
+                            "user_id",
+                            "title",
+                            "description",
+                            "price",
+                            "type",
+                            "status",
+                            "city",
+                            "address",
+                            "bedrooms",
+                            "bathrooms",
+                            "land_area",
+                            "building_area",
+                            "whatsapp_number",
+                            "is_active",
+                            "views"
+                        ],
+                        "useTimestamps": true,
+                        "dateFormat": "datetime",
+                        "createdField": "created_at",
+                        "updatedField": "updated_at",
+                        "useSoftDeletes": true,
+                        "tempUseSoftDeletes": true,
+                        "deletedField": "deleted_at",
+                        "allowEmptyInserts": false,
+                        "updateOnlyChanged": true,
+                        "validationRules": {
+                            "user_id": "required|integer",
+                            "title": "required|min_length[3]|max_length[150]",
+                            "price": "required|numeric",
+                            "type": "required|in_list[rumah,kontrakan,apartemen,kost,ruko,tanah]",
+                            "status": "permit_empty|in_list[dijual,disewa]",
+                            "city": "required|min_length[2]|max_length[100]",
+                            "whatsapp_number": "required|max_length[20]"
+                        },
+                        "validationMessages": [],
+                        "skipValidation": false,
+                        "cleanValidationRules": true,
+                        "validation": null,
+                        "allowCallbacks": true,
+                        "tempAllowCallbacks": true,
+                        "beforeInsert": [],
+                        "afterInsert": [],
+                        "beforeUpdate": [],
+                        "afterUpdate": [],
+                        "beforeInsertBatch": [],
+                        "afterInsertBatch": [],
+                        "beforeUpdateBatch": [],
+                        "afterUpdateBatch": [],
+                        "beforeFind": [],
+                        "afterFind": [],
+                        "beforeDelete": [],
+                        "afterDelete": [],
+                        "table": "properties",
+                        "primaryKey": "id",
+                        "useAutoIncrement": true,
+                        "builder": {
+                            "resetDeleteData": false,
+                            "QBSelect": [],
+                            "QBDistinct": false,
+                            "QBFrom": [
+                                "`properties`"
+                            ],
+                            "QBJoin": [],
+                            "QBWhere": [],
+                            "QBGroupBy": [],
+                            "QBHaving": [],
+                            "QBKeys": [],
+                            "QBLimit": false,
+                            "QBOffset": false,
+                            "QBOrderBy": [],
+                            "QBUnion": [],
+                            "QBNoEscape": [],
+                            "QBSet": [],
+                            "QBWhereGroupStarted": false,
+                            "QBWhereGroupCount": 0,
+                            "QBIgnore": false,
+                            "QBOptions": null,
+                            "db": "[CodeIgniter\\Database\\MySQLi\\Connection Object *RECURSION*]",
+                            "tableName": "properties",
+                            "randomKeyword": [
+                                "RAND()",
+                                "RAND(%d)"
+                            ],
+                            "countString": "SELECT COUNT(*) AS ",
+                            "binds": [],
+                            "bindsKeyCount": [],
+                            "canLimitDeletes": true,
+                            "canLimitWhereUpdates": true,
+                            "supportedIgnoreStatements": {
+                                "update": "IGNORE",
+                                "insert": "IGNORE",
+                                "delete": "IGNORE"
+                            },
+                            "testMode": false,
+                            "joinTypes": [
+                                "LEFT",
+                                "RIGHT",
+                                "OUTER",
+                                "INNER",
+                                "LEFT OUTER",
+                                "RIGHT OUTER"
+                            ],
+                            "isLiteralStr": [
+                                "\"",
+                                "'"
+                            ],
+                            "pregOperators": [
+                                "\\s*(?:<|>|!)?=\\s*",
+                                "\\s*<>?\\s*",
+                                "\\s*>\\s*",
+                                "\\s+IS NULL",
+                                "\\s+IS NOT NULL",
+                                "\\s+EXISTS\\s*\\(.*\\)",
+                                "\\s+NOT EXISTS\\s*\\(.*\\)",
+                                "\\s+BETWEEN\\s+",
+                                "\\s+IN\\s*\\(.*\\)",
+                                "\\s+NOT IN\\s*\\(.*\\)",
+                                "\\s+LIKE\\s+\\S.*(\\s+ESCAPE '\\!')?",
+                                "\\s+NOT LIKE\\s+\\S.*(\\s+ESCAPE '\\!')?"
+                            ],
+                            "escapeChar": "`"
+                        },
+                        "tempData": [],
+                        "escape": [],
+                        "builderMethodsNotAvailable": [
+                            "getCompiledInsert",
+                            "getCompiledSelect",
+                            "getCompiledUpdate"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\CodeIgniter.php",
+            "line": 363,
+            "function": "handleRequest",
+            "class": "CodeIgniter\\CodeIgniter",
+            "type": "->",
+            "args": [
+                null,
+                {
+                    "handler": "file",
+                    "backupHandler": "dummy",
+                    "prefix": "",
+                    "ttl": 60,
+                    "reservedCharacters": "{}()/\\@:",
+                    "file": {
+                        "storePath": "C:\\xampp\\htdocs\\omnihouse\\writable\\cache/",
+                        "mode": 416
+                    },
+                    "memcached": {
+                        "host": "127.0.0.1",
+                        "port": 11211,
+                        "weight": 1,
+                        "raw": false
+                    },
+                    "redis": {
+                        "host": "127.0.0.1",
+                        "password": null,
+                        "port": 6379,
+                        "timeout": 0,
+                        "async": false,
+                        "persistent": false,
+                        "database": 0
+                    },
+                    "validHandlers": {
+                        "apcu": "CodeIgniter\\Cache\\Handlers\\ApcuHandler",
+                        "dummy": "CodeIgniter\\Cache\\Handlers\\DummyHandler",
+                        "file": "CodeIgniter\\Cache\\Handlers\\FileHandler",
+                        "memcached": "CodeIgniter\\Cache\\Handlers\\MemcachedHandler",
+                        "predis": "CodeIgniter\\Cache\\Handlers\\PredisHandler",
+                        "redis": "CodeIgniter\\Cache\\Handlers\\RedisHandler",
+                        "wincache": "CodeIgniter\\Cache\\Handlers\\WincacheHandler"
+                    },
+                    "cacheQueryString": false,
+                    "cacheStatusCodes": []
+                },
+                false
+            ]
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\Boot.php",
+            "line": 417,
+            "function": "run",
+            "class": "CodeIgniter\\CodeIgniter",
+            "type": "->",
+            "args": []
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\Boot.php",
+            "line": 68,
+            "function": "runCodeIgniter",
+            "class": "CodeIgniter\\Boot",
+            "type": "::",
+            "args": [
+                {
+                    "startTime": 1780063929.88716,
+                    "totalTime": null,
+                    "config": "[Config\\App Object *RECURSION*]",
+                    "benchmark": {
+                        "timers": {
+                            "total_execution": {
+                                "start": 1780063929.88716,
+                                "end": null
+                            },
+                            "bootstrap": {
+                                "start": 1780063929.892995,
+                                "end": 1780063929.912914
+                            },
+                            "required_before_filters": {
+                                "start": 1780063929.912915,
+                                "end": 1780063929.915705
+                            },
+                            "routing": {
+                                "start": 1780063929.91571,
+                                "end": 1780063929.91715
+                            },
+                            "before_filters": {
+                                "start": 1780063929.917502,
+                                "end": 1780063929.917546
+                            },
+                            "controller": {
+                                "start": 1780063929.917549,
+                                "end": null
+                            },
+                            "controller_constructor": {
+                                "start": 1780063929.917549,
+                                "end": 1780063929.932813
+                            },
+                            "route_attributes_before": {
+                                "start": 1780063929.917559,
+                                "end": 1780063929.917562
+                            }
+                        }
+                    },
+                    "request": "[CodeIgniter\\HTTP\\IncomingRequest Object *RECURSION*]",
+                    "response": "[CodeIgniter\\HTTP\\Response Object *RECURSION*]",
+                    "router": {
+                        "collection": {
+                            "defaultNamespace": "App\\Controllers\\",
+                            "defaultController": "Home",
+                            "defaultMethod": "index",
+                            "defaultPlaceholder": "any",
+                            "translateURIDashes": false,
+                            "autoRoute": false,
+                            "override404": null,
+                            "routeFiles": [
+                                "C:\\xampp\\htdocs\\omnihouse\\app\\Config\\Routes.php"
+                            ],
+                            "placeholders": {
+                                "any": ".*",
+                                "segment": "[^/]+",
+                                "alphanum": "[a-zA-Z0-9]+",
+                                "num": "[0-9]+",
+                                "alpha": "[a-zA-Z]+",
+                                "hash": "[^/]+"
+                            },
+                            "routes": {
+                                "*": [],
+                                "OPTIONS": [],
+                                "GET": {
+                                    "__hot-reload": {
+                                        "name": "__hot-reload",
+                                        "handler": "[Closure]",
+                                        "from": "__hot-reload"
+                                    },
+                                    "/": {
+                                        "name": "/",
+                                        "handler": "\\App\\Controllers\\HomeController::index",
+                                        "from": "/"
+                                    },
+                                    "cari": {
+                                        "name": "cari",
+                                        "handler": "\\App\\Controllers\\HomeController::search",
+                                        "from": "cari"
+                                    },
+                                    "properti/([0-9]+)": {
+                                        "name": "properti/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\PropertyController::detail/$1",
+                                        "from": "properti/(:num)"
+                                    },
+                                    "login": {
+                                        "name": "login",
+                                        "handler": "\\App\\Controllers\\AuthController::login",
+                                        "from": "login"
+                                    },
+                                    "register": {
+                                        "name": "register",
+                                        "handler": "\\App\\Controllers\\AuthController::register",
+                                        "from": "register"
+                                    },
+                                    "logout": {
+                                        "name": "logout",
+                                        "handler": "\\App\\Controllers\\AuthController::logout",
+                                        "from": "logout"
+                                    },
+                                    "user/dashboard": {
+                                        "name": "user/dashboard",
+                                        "handler": "\\App\\Controllers\\UserController::dashboard",
+                                        "from": "user/dashboard"
+                                    },
+                                    "user/profil": {
+                                        "name": "user/profil",
+                                        "handler": "\\App\\Controllers\\UserController::profile",
+                                        "from": "user/profil"
+                                    },
+                                    "user/inbox": {
+                                        "name": "user/inbox",
+                                        "handler": "\\App\\Controllers\\UserController::inbox",
+                                        "from": "user/inbox"
+                                    },
+                                    "user/chat/([0-9]+)/([0-9]+)": {
+                                        "name": "user/chat/([0-9]+)/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\UserController::conversation/$1/$2",
+                                        "from": "user/chat/(:num)/(:num)"
+                                    },
+                                    "seller/dashboard": {
+                                        "name": "seller/dashboard",
+                                        "handler": "\\App\\Controllers\\SellerController::dashboard",
+                                        "from": "seller/dashboard"
+                                    },
+                                    "seller/properti/tambah": {
+                                        "name": "seller/properti/tambah",
+                                        "handler": "\\App\\Controllers\\SellerController::create",
+                                        "from": "seller/properti/tambah"
+                                    },
+                                    "seller/properti/edit/([0-9]+)": {
+                                        "name": "seller/properti/edit/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\SellerController::edit/$1",
+                                        "from": "seller/properti/edit/(:num)"
+                                    }
+                                },
+                                "HEAD": [],
+                                "POST": {
+                                    "login": {
+                                        "name": "login",
+                                        "handler": "\\App\\Controllers\\AuthController::login",
+                                        "from": "login"
+                                    },
+                                    "register": {
+                                        "name": "register",
+                                        "handler": "\\App\\Controllers\\AuthController::register",
+                                        "from": "register"
+                                    },
+                                    "user/profil": {
+                                        "name": "user/profil",
+                                        "handler": "\\App\\Controllers\\UserController::profile",
+                                        "from": "user/profil"
+                                    },
+                                    "seller/properti/tambah": {
+                                        "name": "seller/properti/tambah",
+                                        "handler": "\\App\\Controllers\\SellerController::create",
+                                        "from": "seller/properti/tambah"
+                                    },
+                                    "seller/properti/edit/([0-9]+)": {
+                                        "name": "seller/properti/edit/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\SellerController::edit/$1",
+                                        "from": "seller/properti/edit/(:num)"
+                                    },
+                                    "api/messages/send": {
+                                        "name": "api/messages/send",
+                                        "handler": "\\App\\Controllers\\UserController::sendMessage",
+                                        "from": "api/messages/send"
+                                    }
+                                },
+                                "PATCH": [],
+                                "PUT": [],
+                                "DELETE": {
+                                    "seller/properti/([0-9]+)": {
+                                        "name": "seller/properti/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\SellerController::delete/$1",
+                                        "from": "seller/properti/(:num)"
+                                    },
+                                    "api/images/([0-9]+)": {
+                                        "name": "api/images/([0-9]+)",
+                                        "handler": "\\App\\Controllers\\SellerController::deleteImage/$1",
+                                        "from": "api/images/(:num)"
+                                    }
+                                },
+                                "TRACE": [],
+                                "CONNECT": [],
+                                "CLI": []
+                            },
+                            "routesNames": {
+                                "*": [],
+                                "OPTIONS": [],
+                                "GET": {
+                                    "__hot-reload": "__hot-reload",
+                                    "/": "/",
+                                    "cari": "cari",
+                                    "properti/([0-9]+)": "properti/([0-9]+)",
+                                    "login": "login",
+                                    "register": "register",
+                                    "logout": "logout",
+                                    "user/dashboard": "user/dashboard",
+                                    "user/profil": "user/profil",
+                                    "user/inbox": "user/inbox",
+                                    "user/chat/([0-9]+)/([0-9]+)": "user/chat/([0-9]+)/([0-9]+)",
+                                    "seller/dashboard": "seller/dashboard",
+                                    "seller/properti/tambah": "seller/properti/tambah",
+                                    "seller/properti/edit/([0-9]+)": "seller/properti/edit/([0-9]+)"
+                                },
+                                "HEAD": [],
+                                "POST": {
+                                    "login": "login",
+                                    "register": "register",
+                                    "user/profil": "user/profil",
+                                    "seller/properti/tambah": "seller/properti/tambah",
+                                    "seller/properti/edit/([0-9]+)": "seller/properti/edit/([0-9]+)",
+                                    "api/messages/send": "api/messages/send"
+                                },
+                                "PATCH": [],
+                                "PUT": [],
+                                "DELETE": {
+                                    "seller/properti/([0-9]+)": "seller/properti/([0-9]+)",
+                                    "api/images/([0-9]+)": "api/images/([0-9]+)"
+                                },
+                                "TRACE": [],
+                                "CONNECT": [],
+                                "CLI": []
+                            },
+                            "routesOptions": {
+                                "GET": {
+                                    "__hot-reload": [],
+                                    "/": [],
+                                    "cari": [],
+                                    "properti/([0-9]+)": [],
+                                    "login": [],
+                                    "register": [],
+                                    "logout": [],
+                                    "user/dashboard": {
+                                        "filter": [
+                                            "auth"
+                                        ]
+                                    },
+                                    "user/profil": {
+                                        "filter": [
+                                            "auth"
+                                        ]
+                                    },
+                                    "user/inbox": {
+                                        "filter": [
+                                            "auth"
+                                        ]
+                                    },
+                                    "user/chat/([0-9]+)/([0-9]+)": {
+                                        "filter": [
+                                            "auth"
+                                        ]
+                                    },
+                                    "seller/dashboard": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    },
+                                    "seller/properti/tambah": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    },
+                                    "seller/properti/edit/([0-9]+)": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    }
+                                },
+                                "POST": {
+                                    "login": [],
+                                    "register": [],
+                                    "user/profil": {
+                                        "filter": [
+                                            "auth"
+                                        ]
+                                    },
+                                    "seller/properti/tambah": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    },
+                                    "seller/properti/edit/([0-9]+)": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    },
+                                    "api/messages/send": []
+                                },
+                                "DELETE": {
+                                    "seller/properti/([0-9]+)": {
+                                        "filter": [
+                                            "seller"
+                                        ]
+                                    },
+                                    "api/images/([0-9]+)": []
+                                }
+                            },
+                            "HTTPVerb": "GET",
+                            "defaultHTTPMethods": [
+                                "GET",
+                                "HEAD",
+                                "POST",
+                                "PATCH",
+                                "PUT",
+                                "DELETE",
+                                "OPTIONS",
+                                "TRACE",
+                                "CONNECT",
+                                "CLI"
+                            ],
+                            "group": null,
+                            "currentSubdomain": null,
+                            "currentOptions": null,
+                            "didDiscover": true,
+                            "fileLocator": {
+                                "autoloader": {
+                                    "prefixes": {
+                                        "CodeIgniter": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\"
+                                        ],
+                                        "Config": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\app\\Config\\"
+                                        ],
+                                        "App": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\app\\"
+                                        ],
+                                        "Tests\\Support": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../../tests/_support\\"
+                                        ],
+                                        "Psr\\Log": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../psr/log/src\\"
+                                        ],
+                                        "Psr\\Container": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../psr/container/src\\"
+                                        ],
+                                        "PhpParser": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../nikic/php-parser/lib/PhpParser\\"
+                                        ],
+                                        "Laminas\\Escaper": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../laminas/laminas-escaper/src\\"
+                                        ],
+                                        "Faker": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../fakerphp/faker/src/Faker\\"
+                                        ],
+                                        "DeepCopy": [
+                                            "C:\\xampp\\htdocs\\omnihouse\\vendor\\composer/../myclabs/deep-copy/src/DeepCopy\\"
+                                        ]
+                                    },
+                                    "classmap": {
+                                        "Psr\\Log\\AbstractLogger": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/AbstractLogger.php",
+                                        "Psr\\Log\\InvalidArgumentException": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/InvalidArgumentException.php",
+                                        "Psr\\Log\\LoggerAwareInterface": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/LoggerAwareInterface.php",
+                                        "Psr\\Log\\LoggerAwareTrait": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/LoggerAwareTrait.php",
+                                        "Psr\\Log\\LoggerInterface": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/LoggerInterface.php",
+                                        "Psr\\Log\\LoggerTrait": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/LoggerTrait.php",
+                                        "Psr\\Log\\LogLevel": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/LogLevel.php",
+                                        "Psr\\Log\\NullLogger": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/PSR/Log/NullLogger.php",
+                                        "Laminas\\Escaper\\Exception\\ExceptionInterface": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/Escaper/Exception/ExceptionInterface.php",
+                                        "Laminas\\Escaper\\Exception\\InvalidArgumentException": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/Escaper/Exception/InvalidArgumentException.php",
+                                        "Laminas\\Escaper\\Exception\\RuntimeException": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/Escaper/Exception/RuntimeException.php",
+                                        "Laminas\\Escaper\\EscaperInterface": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/Escaper/EscaperInterface.php",
+                                        "Laminas\\Escaper\\Escaper": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\ThirdParty/Escaper/Escaper.php"
+                                    },
+                                    "files": [],
+                                    "helpers": [
+                                        "url"
+                                    ],
+                                    "registeredClosures": [
+                                        "[Closure]",
+                                        "[Closure]"
+                                    ],
+                                    "composerPath": "C:\\xampp\\htdocs\\omnihouse\\vendor/autoload.php"
+                                },
+                                "invalidClassnames": []
+                            },
+                            "moduleConfig": {
+                                "enabled": true,
+                                "discoverInComposer": true,
+                                "aliases": [
+                                    "events",
+                                    "filters",
+                                    "registrars",
+                                    "routes",
+                                    "services"
+                                ],
+                                "composerPackages": []
+                            },
+                            "prioritize": false,
+                            "prioritizeDetected": false,
+                            "httpHost": "localhost:8080",
+                            "useSupportedLocalesOnly": false
+                        },
+                        "directory": null,
+                        "controller": "\\App\\Controllers\\HomeController",
+                        "method": "index",
+                        "params": [],
+                        "indexPage": "index.php",
+                        "translateURIDashes": false,
+                        "matchedRoute": [
+                            "/",
+                            "\\App\\Controllers\\HomeController::index"
+                        ],
+                        "matchedRouteOptions": [],
+                        "detectedLocale": null,
+                        "filtersInfo": [],
+                        "autoRouter": null,
+                        "routeAttributes": {
+                            "class": [],
+                            "method": []
+                        },
+                        "permittedURIChars": "a-z 0-9~%.:_\\-"
+                    },
+                    "controller": "\\App\\Controllers\\HomeController",
+                    "method": "index",
+                    "output": null,
+                    "context": "web",
+                    "enableFilters": true,
+                    "returnResponse": false,
+                    "bufferLevel": 1,
+                    "pageCache": {
+                        "cacheQueryString": false,
+                        "ttl": 0,
+                        "cache": {
+                            "prefix": "",
+                            "path": "C:\\xampp\\htdocs\\omnihouse\\writable\\cache/",
+                            "mode": 416
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\public\\index.php",
+            "line": 59,
+            "function": "bootWeb",
+            "class": "CodeIgniter\\Boot",
+            "type": "::",
+            "args": [
+                {
+                    "systemDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/../../vendor/codeigniter4/framework/system",
+                    "appDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/..",
+                    "writableDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/../../writable",
+                    "testsDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/../../tests",
+                    "viewDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/../Views",
+                    "envDirectory": "C:\\xampp\\htdocs\\omnihouse\\app\\Config/../../"
+                }
+            ]
+        },
+        {
+            "file": "C:\\xampp\\htdocs\\omnihouse\\vendor\\codeigniter4\\framework\\system\\rewrite.php",
+            "line": 44,
+            "args": [
+                "C:\\xampp\\htdocs\\omnihouse\\public\\index.php"
+            ],
+            "function": "require_once"
+        }
+    ]
+}

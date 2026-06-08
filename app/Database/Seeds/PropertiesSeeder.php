@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+
+class PropertiesSeeder extends Seeder
+{
+    public function run()
+    {
+        $data = [
+            [
+                'user_id'          => 2,
+                'title'            => 'Rumah Modern di BSD City',
+                'description'      => 'Rumah 2 lantai dengan taman luas dan akses dekat mall.',
+                'price'            => 1500000000,
+                'type'             => 'rumah',
+                'status'           => 'dijual',
+                'city'             => 'Tangerang',
+                'address'          => 'BSD City, Tangerang Selatan',
+                'bedrooms'         => 4,
+                'bathrooms'        => 3,
+                'land_area'        => 200,
+                'building_area'    => 180,
+                'whatsapp_number'  => '081298765432',
+                'is_active'        => 1,
+                'views'            => 25,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ],
+            [
+                'user_id'          => 2,
+                'title'            => 'Apartemen Cozy di Jakarta Pusat',
+                'description'      => 'Apartemen nyaman dekat stasiun dan pusat bisnis.',
+                'price'            => 850000000,
+                'type'             => 'apartemen',
+                'status'           => 'dijual',
+                'city'             => 'Jakarta Pusat',
+                'address'          => 'Thamrin, Jakarta Pusat',
+                'bedrooms'         => 2,
+                'bathrooms'        => 2,
+                'land_area'        => 0,
+                'building_area'    => 60,
+                'whatsapp_number'  => '081298765432',
+                'is_active'        => 1,
+                'views'            => 18,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ],
+            [
+                'user_id'          => 2,
+                'title'            => 'Kost Premium dekat Kampus',
+                'description'      => 'Kamar kost dengan fasilitas lengkap dan Wi-Fi.',
+                'price'            => 1200000,
+                'type'             => 'kost',
+                'status'           => 'disewa',
+                'city'             => 'Bandung',
+                'address'          => 'Cihanjuang, Bandung',
+                'bedrooms'         => 1,
+                'bathrooms'        => 1,
+                'land_area'        => 0,
+                'building_area'    => 18,
+                'whatsapp_number'  => '081298765432',
+                'is_active'        => 1,
+                'views'            => 42,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ],
+            [
+                'user_id'          => 2,
+                'title'            => 'Ruko Strategis di Jalan Raya',
+                'description'      => 'Ruko 2 lantai cocok untuk usaha retail atau kafe.',
+                'price'            => 2200000000,
+                'type'             => 'ruko',
+                'status'           => 'dijual',
+                'city'             => 'Surabaya',
+                'address'          => 'Jalan Raya Darmo, Surabaya',
+                'bedrooms'         => 0,
+                'bathrooms'        => 2,
+                'land_area'        => 120,
+                'building_area'    => 90,
+                'whatsapp_number'  => '081298765432',
+                'is_active'        => 1,
+                'views'            => 31,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ],
+            [
+                'user_id'          => 2,
+                'title'            => 'Tanah Kavling Siap Bangun',
+                'description'      => 'Tanah kavling dekat jalan utama dan fasilitas umum.',
+                'price'            => 450000000,
+                'type'             => 'tanah',
+                'status'           => 'dijual',
+                'city'             => 'Yogyakarta',
+                'address'          => 'Sleman, Yogyakarta',
+                'bedrooms'         => 0,
+                'bathrooms'        => 0,
+                'land_area'        => 500,
+                'building_area'    => 0,
+                'whatsapp_number'  => '081298765432',
+                'is_active'        => 1,
+                'views'            => 14,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+            ],
+        ];
+
+        $this->db->table('properties')->insertBatch($data);
+    }
+}
